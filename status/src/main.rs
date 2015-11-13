@@ -1,5 +1,7 @@
 extern crate notify_rust;
 
+mod watchers;
+
 use notify_rust::Notification;
 
 fn main() {
@@ -11,7 +13,6 @@ fn main() {
 		.show()
         .unwrap();
 }
-
 
 struct Battery {
     path: String,
