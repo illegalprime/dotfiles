@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+"use strict";
+
+var exec = require("child_process").exec;
+var name = process.argv[2];
+
+var findFocused = function(workspaces) {
+    for (var i = 0; i < workspaces.length; ++i) {
+        if (workspaces[i].focused) {
+            return workspaces[i];
+        }
+    }
+};
+
+exec("i3-msg -t get_workspaces", function(error, stdout) {
+    if (error && error.code !== 0) {
+        process.exit(error.code);
+    }
+    var current;
+    try {
+        current = findFocused(JSON.parse(stdout.toString()));
+    } catch (err) {
+        console.error("Could not parse JSON message:", err.message);
+        process.exit(1);
+    }
+
+    var workname;
+    if (name) {
+        workname = current.num + "| " + name;
+    } else {
+        workname = current.num;
+    }
+
+    var rename = "i3-msg 'rename workspace \"" + current.name + "\" to \"" + workname + "\"'";
+    exec(rename, function(error, stdout) {
+        try {
+            var output = JSON.parse(stdout.toString());
+            if (!output.success) {
+                process.exit(5);
+            }
+        } catch (err) {
+            console.error("Could not parse JSON:", err);
+            process.exit(2);
+        }
+        process.exit(0);
+    });
+});
