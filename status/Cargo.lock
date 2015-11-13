@@ -1,0 +1,28 @@
+[root]
+name = "watcher"
+version = "0.1.0"
+dependencies = [
+ "notify-rust 3.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "dbus"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "libc"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "notify-rust"
+version = "3.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "dbus 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+

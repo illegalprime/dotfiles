@@ -1,0 +1,7 @@
+[package]
+name = "watcher"
+version = "0.1.0"
+authors = ["Michael Eden <themichaeleden@gmail.com>"]
+
+[dependencies]
+notify-rust = "*"
