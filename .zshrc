@@ -3,33 +3,31 @@
 
 if echo "$-" | grep "l" > /dev/null; then
 else
-		function precmd() {
-				print -Pn "\e]2;$USER@%~\a"
-				print -Pn "\033]0;$USER@%~\007"
-		}
+    function precmd() {
+        print -Pn "\e]2;$USER@%~\a"
+        print -Pn "\033]0;$USER@%~\007"
+    }
 
-		function preexec() {
-				print -Pn "\e]2;$1\a"
-				print -Pn "\033]0;$1\007"
-		}
+    function preexec() {
+        print -Pn "\e]2;$1\a"
+        print -Pn "\033]0;$1\007"
+    }
 
-		function search_cmd() {
-			apt-file search "/$1/$2" | grep -oE ".*/$1/$2\$"
-			apt-file search "/usr/$1/$2" | grep -oE "\.\*/usr/$1/$2\$"
-		}
+    function search_cmd_all() {
+        # Maybe better than pacman -Ss?
+        # pkgfile -s "$1"
+        if hash pacman 2>/dev/null; then
+            pacman -Ss "$1"
+        elif hash apt-file 2>/dev/null; then
+            apt-file search "$1"
+        fi
+    }
 
-		function search_cmd_all() {
-			# search_cmd "bin" "$1"
-			# search_cmd "sbin" "$1"
-            # pkgfile -s "$1"
-            apt-file search $1
-		}
-
-		function command_not_found_handler() {
-		    CMDS="`search_cmd_all $1`"
-			echo "Try installing: "
-			echo "$CMDS"
-		}
+    function command_not_found_handler() {
+        CMDS=$(search_cmd_all $1)
+        echo "Try installing: "
+        echo "$CMDS"
+    }
 fi
 
 ###########
@@ -66,8 +64,8 @@ autoload colors && colors
 
 # Load colors into environment variables.
 for COLOR in RED GREEN YELLOW BLUE MAGENTA CYAN BLACK WHITE; do
-	eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
-	eval BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+    eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
+    eval BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
 done
 
 # $RESET is used to reset colors to their normal value.
@@ -94,13 +92,13 @@ unsetopt caseglob
 
 # Get the branch name of a path.
 git_branch_name() {
-		TARGET="$@"
-		if git_branch "$TARGET"
-		then
-				echo "`git rev-parse --abbrev-ref HEAD`"
-		else
-				echo ""
-		fi
+    TARGET="$@"
+    if git_branch "$TARGET"
+    then
+        echo "`git rev-parse --abbrev-ref HEAD`"
+    else
+        echo ""
+    fi
 }
 
 ############
@@ -171,8 +169,8 @@ export PS_VI_INSERT=""
 
 
 # function zle-line-init zle-keymap-select {
-#	export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
-#	zle reset-prompt
+#    export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
+#    zle reset-prompt
 # }
 
 
