@@ -25,7 +25,7 @@ else
 
     function command_not_found_handler() {
         CMDS=$(search_cmd_all $1)
-        echo "Try installing: "
+        echo "$@ not found... Try installing:"
         echo "$CMDS"
     }
 fi
@@ -161,6 +161,7 @@ export GIT_PROMPT='%b%f$(git_super_status)'
 export PS_PWD="$PS_OPEN%B%F{cyan}%1~%B%F{white}${GIT_PROMPT}%B%F${PS_CLOSE}"
 export PS_TTY="$PS_OPEN%B%F{yellow}%l$PS_CLOSE"
 export PS_USER="$PS_OPEN%B%F{green}%n$PS_CLOSE"
+export PS_HOST="$PS_OPEN%B%F{green}%m$PS_CLOSE"
 export PS_TIME="$PS_OPEN%B%F{yellow}%T$PS_CLOSE"
 export PS_PROMPT='%B%F{red}$%b%f%k'
 export PS_VI_NORMAL="$PS_OPEN%B%F{yellow}NORMAL$PS_CLOSE"
@@ -173,8 +174,14 @@ export PS_VI_INSERT=""
 #    zle reset-prompt
 # }
 
+PS_FIRST=
+if [[ $SSH_CLIENT || $SSH_TTY ]]; then
+    PS_FIRST="$PS_HOST"
+else
+    PS_FIRST="$PS_USER"
+fi
 
-export PS1="$PS_USER $PS_PWD $PS_PROMPT "
+export PS1="$PS_FIRST $PS_PWD $PS_PROMPT "
 # export PS1="$PS_USER $PS_TTY $PS_PWD $PS_PROMPT "
 
 export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
@@ -189,16 +196,31 @@ alias please='sudo $(fc -ln -1)'
 alias http='python3 -m http.server'
 alias cde='cd ~michael/cde'
 alias again='until $(fc -ln -1); do :; done'
+alias clbin="curl -F 'clbin=<-' https://clbin.com"
+
+function targz() {
+    tar -zcvf "${1}.tar.gz" "${1}"
+}
+
+function watch() {
+    while :; do
+        inotifywait -e close_write "$1"
+        RUN=$(echo $@ | cut -d " " -f2-)
+        echo "Running $RUN..."
+        eval "$RUN"
+    done
+}
 
 PATH="${PATH}:/home/michael/bin"
-
-# "/home/joshua/.bin/Scripts/Random GLaDOS Quotes/gladQuotes.sh"
 
 #############
 # Variables #
 #############
 
+export EDITOR=vim
+export ANDROID_HOME=/home/michael/Programs/android-sdk-linux
 export RUST_SRC_PATH=/home/michael/Programs/rust/src
+export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
 
 ###############################
 ## Home & End Keys hopefully ##
@@ -218,7 +240,6 @@ export RUST_SRC_PATH=/home/michael/Programs/rust/src
 [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
 [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
-
 
 #########
 # Final #
