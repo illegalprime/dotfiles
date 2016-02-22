@@ -38,6 +38,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 Plugin 'easymotion/vim-easymotion'
+Plugin 'leafgarland/typescript-vim'
 
 " Options for Rust Autocomplete
 set hidden
