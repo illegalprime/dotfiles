@@ -1,0 +1,86 @@
+# i3 config file (v4)
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# Generate by Chef for <%= node[:fqdn] %>
+
+font <%= node[:i3][:fonts].join(",") %>
+
+<%for app in node[:i3][:apps] %>
+bindsym <%= app[:sym].join("+") %> exec <%= app[:cmd] %>
+<% end  %>
+
+floating_modifier <%= node[:i3][:floating_modifier] %>
+
+bindsym <%= node[:i3][:close_window].join("+") %> kill
+
+bindsym <%= node[:i3][:focus][:left].join("+")  %> focus left
+bindsym <%= node[:i3][:focus][:down].join("+")  %> focus down
+bindsym <%= node[:i3][:focus][:up].join("+")    %> focus up
+bindsym <%= node[:i3][:focus][:right].join("+") %> focus right
+bindsym <%= node[:i3][:focus][:toggle].join("+") %> focus mode_toggle
+bindsym <%= node[:i3][:focus][:parent].join("+") %> focus parent
+bindsym <%= node[:i3][:focus][:child].join("+") %> focus child
+
+bindsym <%= node[:i3][:move][:left].join("+")  %> move left
+bindsym <%= node[:i3][:move][:down].join("+")  %> move down
+bindsym <%= node[:i3][:move][:up].join("+")    %> move up
+bindsym <%= node[:i3][:move][:right].join("+") %> move right
+
+bindsym <%= node[:i3][:split][:horizontal].join("+") %> split h
+bindsym <%= node[:i3][:split][:vertical].join("+")   %> split v
+
+bindsym <%= node[:i3][:fullscreen].join("+") %> fullscreen
+
+bindsym <%= node[:i3][:stacking].join("+")       %> layout stacking
+bindsym <%= node[:i3][:tabbed].join("+")         %> layout tabbed
+bindsym <%= node[:i3][:split][:toggle].join("+") %> layout toggle split
+bindsym <%= node[:i3][:floating].join("+")       %> floating toggle
+
+<% for i in 1..node[:i3][:workspace][:count] %>
+bindsym <%= node[:i3][:workspace][:goto].join("+") %>+<%= i %> workspace number <%= i %>
+bindsym <%= node[:i3][:workspace][:moveto].join("+") %>+<%= i %> move container to workspace number <%= i %>
+<% end %>
+
+bindsym <%= node[:i3][:reload].join("+") %> reload
+bindsym <%= node[:i3][:restart].join("+") %> restart
+
+bindsym <%= node[:i3][:resize][:mode].join("+") %> mode "resize"
+mode "resize" {
+        bindsym <%= node[:i3][:resize][:shrink][:width] %> resize shrink width <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
+        bindsym <%= node[:i3][:resize][:grow][:height] %> resize grow height <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
+        bindsym <%= node[:i3][:resize][:shrink][:height] %> resize shrink height <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
+        bindsym <%= node[:i3][:resize][:grow][:width] %> resize grow width <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
+        bindsym <%= node[:i3][:default] %> mode "default"
+}
+
+<% bar_config = node[:i3][:bar] %>
+<% work_color = node[:i3][:bar][:colors][:workspace] %>
+bar {
+    colors {
+        background <%= bar_config[:colors][:background] %>
+        statusline <%= bar_config[:colors][:statusline] %>
+        separator <%=  bar_config[:colors][:separator]  %>
+        focused_workspace <%= work_color[:focused][:border] %> <%= work_color[:focused][:background] %> <%= work_color[:focused][:text] %>
+        inactive_workspace <%= work_color[:inactive][:border] %> <%= work_color[:inactive][:background] %> <%= work_color[:inactive][:text] %>
+    }
+    status_command <%= bar_config[:status] %>
+    i3bar_command <%= bar_config[:command] %>
+    separator_symbol "<%= bar_config[:separator] %>"
+}
+
+# Tab Decorations
+client.focused <%= node[:i3][:client][:focused][:border] %> <%= node[:i3][:client][:focused][:background] %> <%= node[:i3][:client][:focused][:text] %> <%= node[:i3][:client][:focused][:indicator] %>
+client.focused_inactive <%= node[:i3][:client][:focused_inactive][:border] %> <%= node[:i3][:client][:focused_inactive][:background] %> <%= node[:i3][:client][:focused_inactive][:text] %> <%= node[:i3][:client][:focused_inactive][:indicator] %>
+client.unfocused <%= node[:i3][:client][:unfocused][:border] %> <%= node[:i3][:client][:unfocused][:background] %> <%= node[:i3][:client][:unfocused][:text] %> <%= node[:i3][:client][:unfocused][:indicator] %>
+client.urgent <%= node[:i3][:client][:urgent][:border] %> <%= node[:i3][:client][:urgent][:background] %> <%= node[:i3][:client][:urgent][:text] %> <%= node[:i3][:client][:urgent][:indicator] %>
+
+<% if node[:i3][:hide_decorations] %>
+new_window 1pixel
+new_float 1pixel
+for_window [class="^.*"] border pixel 0
+<% end %>
+
+gaps inner <%= node[:i3][:gaps][:inner] %>
+
+<% for app in node[:i3][:startup] %>
+exec --no-startup-id <%= app %>
+<% end %>
