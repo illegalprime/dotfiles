@@ -1,0 +1,37 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+# Generate by Chef for <%= node[:fqdn] %>
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+<%
+# Character encodings are hard!
+icons = {
+    "rss"       => "",
+    "lightning" => "",
+    "gears"     => "",
+    "download"  => "",
+    "speaker"   => "",
+    "muted"     => "",
+}
+%>
+
+general {
+    colors = <%= node[:i3][:status][:colors] %>
+    interval = <%= node[:i3][:status][:interval] %>
+}
+
+<% for indicator in node[:i3][:status][:order] %>
+order += "<%= indicator %>"
+<% end %>
+
+<% node[:i3][:status][:indicators].each do |key, props| %>
+<%= key %> {
+    <% props.each do |prop, value| %>
+    <%= prop %> = "<%= value.gsub(/icons:([a-z_]+)/) { |m| icons[$1] } %>"
+    <% end %>
+}
+<% end %>

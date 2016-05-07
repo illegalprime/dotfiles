@@ -7,6 +7,10 @@ default[:i3][:status_config_path] = File.join(default[:home], ".i3status.conf")
 default[:i3][:super] = "Mod4"
 default[:i3][:alt] = "Mod1"
 
+###################################
+# Configure the i3 Window Manager #
+###################################
+
 Super = node[:i3][:super]
 Alt = node[:i3][:alt]
 
@@ -215,6 +219,7 @@ normal[:i3][:client] = {
     },
 }
 
+# Ubuntu-specifics
 if node[:platform] == "ubuntu"
     normal[:i3][:startup] += [
         "unity-settings-daemon &",
@@ -222,6 +227,55 @@ if node[:platform] == "ubuntu"
         "gsettings set org.gnome.desktop.background show-desktop-icons false",
     ]
 end
+
+###############################
+# Configure the i3 Status app #
+###############################
+
+normal[:i3][:status] = {
+    :colors => true,
+    :interval => 5,
+    :order => [
+        "load",
+        "disk /",
+        "wireless wlan0",
+        "volume master",
+        "battery 0",
+        "tztime local",
+    ],
+    :indicators => {
+        "wireless wlan0" => {
+            "format_up" => "(%quality @ %essid) %ip icons:rss",
+            "format_down" => "down icons:rss",
+        },
+        "battery 0" => {
+            "format" => "%status %percentage %remaining icons:lightning",
+        },
+        "run_watch DHCP" => {
+            "pidfile" => "/var/run/dhclient*.pid",
+        },
+        "run_watch VPN" => {
+            "pidfile" => "/var/run/vpnc/pid",
+        },
+        "tztime local" => {
+            "format" => "%Y-%m-%d %H:%M:%S",
+        },
+        "load" => {
+            "format" => "%1min icons:gears",
+        },
+        "disk /" => {
+            "format" => "%avail icons:download",
+            "prefix_type" => "decimal icons:download",
+        },
+        "volume master" => {
+            "format" => "%volume icons:speaker",
+            "format_muted" => "%volume icons:muted",
+            "device" => "default",
+            "mixer" => "Master",
+            "mixer_idx" => "0",
+        },
+    },
+}
 
 # Note `/etc/default/keyboard` is remapping caps lock to ctrl by adding
 # the `XKBOPTIONS="ctrl:nocaps"` line.
