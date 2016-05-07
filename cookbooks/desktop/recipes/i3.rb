@@ -40,4 +40,4 @@ include_recipe "desktop::rofi"
 # TODO: pleb_ui
 
 # i3 with Gaps
-# TODO
+include_recipe "desktop::i3-gaps"

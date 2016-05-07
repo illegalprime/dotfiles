@@ -49,6 +49,7 @@ bash "compile_rofi" do
         make
     FIN
     notifies :run, "bash[install_rofi]", :immediately
+    action :nothing
 end
 
 # install rofi
@@ -56,4 +57,5 @@ bash "install_rofi" do
     cwd node[:rofi][:src]
     code "make install"
     creates node[:rofi][:bin]
+    action :nothing
 end
