@@ -11,6 +11,11 @@ directory node[:personal_bin] do
     group node[:user]
 end
 
+directory node[:cde] do
+    owner node[:user]
+    group node[:user]
+end
+
 bash "git-aliases" do
     user node[:user]
     group node[:user]

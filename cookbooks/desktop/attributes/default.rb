@@ -1,7 +1,10 @@
 default[:user] = "michael"
 default[:home] = File.join "/home", node[:user]
 
-default[:personal_bin] = File.join(node[:home], ".bin")
-default[:pleb_ui] = File.join(node[:personal_bin], "pleb_ui")
+default[:personal_bin] = File.join node[:home], ".bin"
+default[:cde] = File.join node[:home], "cde"
+
+default[:node_bin] = File.join node[:personal_bin], "node_modules/.bin"
+default[:pleb_ui] = File.join node[:personal_bin], "pleb_ui"
 
 default[:ppas] = []

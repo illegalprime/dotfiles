@@ -14,28 +14,30 @@ else
     }
 
     function search_cmd_all() {
-        # Maybe better than pacman -Ss?
-        # pkgfile -s "$1"
         if hash pacman 2>/dev/null; then
             pacman -Ss "$1"
         elif hash apt-file 2>/dev/null; then
             apt-file search "$1"
+        else
+            echo "No apt-file or pacman found!"
         fi
     }
 
     function command_not_found_handler() {
-        CMDS=$(search_cmd_all $1)
-        echo "$@ not found... Try installing:"
-        echo "$CMDS"
+        echo -n "$@ not found... Search for the file? (y/n): "
+        read  RESPONSE
+        if [[ $RESPONSE = "y" || $RESPONSE = "Y" ]]; then
+            echo "Searching..."
+            CMDS=$(search_cmd_all $1)
+            echo "$CMDS"
+        fi
     }
 fi
 
 ###########
 # Sources #
 ###########
-
-source ~/Programs/zsh-git-prompt/zshrc.sh
-# source /usr/share/nvm/init-nvm.sh
+source <%= node[:zsh][:git_prompt][:rc] %>
 
 ################
 # Autocomplete #
@@ -72,7 +74,6 @@ done
 eval RESET='$reset_color'
 
 # Ls colors.
-
 eval `dircolors`
 alias ls="ls -F --color=auto"
 
@@ -86,21 +87,6 @@ setopt extendedglob
 # Ignore case while globbing.
 unsetopt caseglob
 
-#######
-# Git #
-#######
-
-# Get the branch name of a path.
-git_branch_name() {
-    TARGET="$@"
-    if git_branch "$TARGET"
-    then
-        echo "`git rev-parse --abbrev-ref HEAD`"
-    else
-        echo ""
-    fi
-}
-
 ############
 # History #
 ###########
@@ -108,8 +94,10 @@ git_branch_name() {
 # Save timestamps and runtimes to the history file.
 setopt extendedhistory
 
+<% if node[:zsh][:sharehistory] %>
 # All shells immediatly see new history from other shells.
-# setopt sharehistory
+setopt sharehistory
+<% end %>
 
 ###############
 # Compilation #
@@ -132,7 +120,7 @@ select-word-style shell
 #######
 
 # Vim mode.
-# bindkey -v
+bindkey -v
 
 ##############
 # Statistics #
@@ -165,36 +153,36 @@ export PS_HOST="$PS_OPEN%B%F{green}%m$PS_CLOSE"
 export PS_TIME="$PS_OPEN%B%F{yellow}%T$PS_CLOSE"
 export PS_PROMPT='%B%F{red}$%b%f%k'
 export PS_VI_NORMAL="$PS_OPEN%B%F{yellow}NORMAL$PS_CLOSE"
-#export PS_VI_INSERT="$PS_OPEN%B%F{yellow}INSERT$PS_CLOSE"
+export PS_VI_INSERT="$PS_OPEN%B%F{yellow}INSERT$PS_CLOSE"
 export PS_VI_INSERT=""
 
 
-# function zle-line-init zle-keymap-select {
-#    export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
-#    zle reset-prompt
-# }
+function zle-line-init zle-keymap-select {
+   export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
+   zle reset-prompt
+}
 
 PS_FIRST=
-if [[ $SSH_CLIENT || $SSH_TTY ]]; then
+if [ -n "$SSH_CLIENT" -o -n "$SSH_TTY" ]; then
     PS_FIRST="$PS_HOST"
 else
     PS_FIRST="$PS_USER"
 fi
 
 export PS1="$PS_FIRST $PS_PWD $PS_PROMPT "
-# export PS1="$PS_USER $PS_TTY $PS_PWD $PS_PROMPT "
 
 export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
-#zle -N zle-line-init
-#zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 #########
 # Alias #
 #########
 
+alias open='xdg-open'
 alias please='sudo $(fc -ln -1)'
 alias http='python3 -m http.server'
-alias cde='cd ~michael/cde'
+alias cde='cd <%= node[:cde] %>'
 alias again='until $(fc -ln -1); do :; done'
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
 
@@ -211,39 +199,29 @@ function watch() {
     done
 }
 
-PATH="${PATH}:/home/michael/bin"
+function latex_watch() {
+    FILE="$1"
+    watch "$FILE" pdflatex -halt-on-error "$FILE"
+}
+
+PATH="${PATH}:<%= node[:zsh][:paths].join(':') %>"
 
 #############
 # Variables #
 #############
 
 export EDITOR=vim
-export ANDROID_HOME=/home/michael/Programs/android-sdk-linux
-export RUST_SRC_PATH=/home/michael/Programs/rust/src
+export ANDROID_HOME=/home/michael/sdk/android
+export RUST_SRC_PATH=<%= node[:rust][:stdlib] %>
 export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
 
-###############################
-## Home & End Keys hopefully ##
-###############################
-
-#autoload zkbd
-#source /home/michael/.zkbd/rxvt-unicode-256color-:0
-
-[[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
-[[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
-[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
-[[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
-[[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
-[[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
-[[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
-[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
-[[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
-[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
-[[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+if [[ -d "$ANDROID_HOME/platform-tools" ]]; then
+    PATH="${PATH}:${ANDROID_HOME}/platform-tools"
+fi
 
 #########
 # Final #
 #########
-if [[ $PWD = $HOME ]]; then
-    cd cde
+if [[ $PWD = '<%= node[:home] %>' ]]; then
+    cd <%= node[:cde] %>
 fi
