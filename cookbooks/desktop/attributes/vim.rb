@@ -9,6 +9,8 @@ default[:vim][:vundle][:src] = File.join node[:vim][:config], "bundle/Vundle.vim
 
 default[:vim][:notes][:dir] = File.join node[:home], "Documents/Notes"
 
+default[:vim][:ycm][:src] = File.join node[:vim][:config], "bundle/YouCompleteMe"
+
 normal[:vim][:plugins] = [
     "gmarik/Vundle.vim",
     "rust-lang/rust.vim",
@@ -21,12 +23,9 @@ normal[:vim][:plugins] = [
     "nathanaelkane/vim-indent-guides",
     "Raimondi/delimitMate",
     "scrooloose/syntastic",
-    "marijnh/tern_for_vim",
-    "phildawes/racer",
     "godlygeek/tabular",
     "plasticboy/vim-markdown",
     "easymotion/vim-easymotion",
-    "leafgarland/typescript-vim",
     "terryma/vim-multiple-cursors",
     "Limvot/kraken.vim",
 ]
