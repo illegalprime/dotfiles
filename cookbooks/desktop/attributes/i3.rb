@@ -33,6 +33,15 @@ normal[:i3][:startup] = [
     "rofi -key-run SuperL-d -key-window SuperL-grave -key-ssh Alt-s &",
 ]
 
+# Ubuntu-specifics
+if node[:platform] == "ubuntu"
+    normal[:i3][:startup] += [
+        "unity-settings-daemon &",
+        "gsettings set org.gnome.desktop.lockdown disable-lock-screen true",
+        "gsettings set org.gnome.desktop.background show-desktop-icons false",
+    ]
+end
+
 # Keyboard shortcuts for apps
 normal[:i3][:apps] = [
     {
@@ -217,15 +226,6 @@ normal[:i3][:client] = {
         :indicator  => "#dccd69",
     },
 }
-
-# Ubuntu-specifics
-if node[:platform] == "ubuntu"
-    normal[:i3][:startup] += [
-        "unity-settings-daemon &",
-        "gsettings set org.gnome.desktop.lockdown disable-lock-screen true",
-        "gsettings set org.gnome.desktop.background show-desktop-icons false",
-    ]
-end
 
 ###############################
 # Configure the i3 Status app #

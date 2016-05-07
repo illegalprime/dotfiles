@@ -1,6 +1,8 @@
 # install libraries to build
 package "libxtst-dev"
 package "libx11-dev"
+package "libxtst6"
+package "libx11-6"
 
 # sync xcape with repo
 git node[:xcape][:src] do

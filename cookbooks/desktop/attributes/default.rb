@@ -1,4 +1,4 @@
-default[:user] = ENV["USER"]
+default[:user] = `who am i`.split[0]
 default[:home] = Dir.home
 
 default[:personal_bin] = File.join(node[:home], ".bin")
