@@ -30,9 +30,10 @@ def ubuntu
           distribution node["lsb"]["codename"]
         end
     end
+
     # Update the apt cache
     apt_update "simple" do
-        action :update
+        action :periodic
     end
 end
 

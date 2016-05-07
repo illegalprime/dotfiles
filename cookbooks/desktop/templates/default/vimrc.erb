@@ -1,0 +1,44 @@
+syntax on
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+filetype plugin indent on
+set spelllang=en_us
+match ErrorMsg '\s\+$'
+set background=dark
+
+autocmd BufRead,BufNewFile *.md setlocal spell
+set complete+=kspell
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=<%= node[:vim][:vundle][:src] %>
+call vundle#begin()
+<% for plugin in node[:vim][:plugins] %>
+Plugin '<%= plugin %>'
+<% end %>
+
+" YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
+set hidden
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+let g:ycm_rust_src_path = '<%= node[:rust][:stdlib] %>'
+set completeopt-=preview
+
+" This does what it says on the tin. It will check your file on open too, not just on save.
+" You might not want this, so just leave it out if you don't.
+let g:syntastic_check_on_open=1
+
+" delimitMate
+let delimitMate_expand_cr = 1
+
+:let g:notes_directories = ['<%= node[:vim][:notes][:dir] %>']
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Map ; to :
+map ; :
