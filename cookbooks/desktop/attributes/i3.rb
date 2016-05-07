@@ -10,7 +10,6 @@ default[:i3][:alt] = "Mod1"
 ###################################
 # Configure the i3 Window Manager #
 ###################################
-
 Super = node[:i3][:super]
 Alt = node[:i3][:alt]
 
@@ -139,7 +138,7 @@ normal[:i3][:tabbed]   = [Super, "w"]
 normal[:i3][:floating] = [Super, "Shift", "space"]
 
 normal[:i3][:workspace] = {
-    :count  => 10,
+    :syms   => [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
     :goto   => [Super],
     :moveto => [Super, "Shift"],
 }
@@ -231,7 +230,6 @@ end
 ###############################
 # Configure the i3 Status app #
 ###############################
-
 normal[:i3][:status] = {
     :colors => true,
     :interval => 5,
@@ -277,5 +275,6 @@ normal[:i3][:status] = {
     },
 }
 
+# TODO:
 # Note `/etc/default/keyboard` is remapping caps lock to ctrl by adding
 # the `XKBOPTIONS="ctrl:nocaps"` line.

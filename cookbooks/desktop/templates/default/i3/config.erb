@@ -35,9 +35,9 @@ bindsym <%= node[:i3][:tabbed].join("+")         %> layout tabbed
 bindsym <%= node[:i3][:split][:toggle].join("+") %> layout toggle split
 bindsym <%= node[:i3][:floating].join("+")       %> floating toggle
 
-<% for i in 1..node[:i3][:workspace][:count] %>
-bindsym <%= node[:i3][:workspace][:goto].join("+") %>+<%= i %> workspace number <%= i %>
-bindsym <%= node[:i3][:workspace][:moveto].join("+") %>+<%= i %> move container to workspace number <%= i %>
+<% node[:i3][:workspace][:syms].each_with_index do |key, i| %>
+bindsym <%= node[:i3][:workspace][:goto].join("+") %>+<%= key %> workspace number <%= i + 1 %>
+bindsym <%= node[:i3][:workspace][:moveto].join("+") %>+<%= key %> move container to workspace number <%= i + 1 %>
 <% end %>
 
 bindsym <%= node[:i3][:reload].join("+") %> reload
