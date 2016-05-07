@@ -19,4 +19,6 @@ suites:
     run_list:
       - recipe[desktop::default]
       - recipe[desktop::i3]
+      - recipe[desktop::vim]
+      - recipe[desktop::compton]
     attributes:
