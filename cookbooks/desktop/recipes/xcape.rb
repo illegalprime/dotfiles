@@ -26,6 +26,5 @@ end
 bash "install_xcape" do
     cwd node[:xcape][:src]
     code "make install"
-    creates node[:xcape][:bin]
     action :nothing
 end

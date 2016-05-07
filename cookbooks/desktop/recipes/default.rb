@@ -21,3 +21,23 @@ bash "git-aliases" do
         git config --global alias.st status
     FIN
 end
+
+def ubuntu
+    # Add all the ppas
+    node[:ppas].each do |ppa|
+        apt_repository ppa[4..-1].gsub(/\//, "-") do
+          uri ppa
+          distribution node["lsb"]["codename"]
+        end
+    end
+    # Update the apt cache
+    apt_update "simple" do
+        action :update
+    end
+end
+
+# Platform specific things
+case node[:platform]
+when "ubuntu"
+    ubuntu()
+end

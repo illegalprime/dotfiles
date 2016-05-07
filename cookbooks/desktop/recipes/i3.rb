@@ -37,7 +37,7 @@ include_recipe "desktop::xcape"
 include_recipe "desktop::rofi"
 
 # Custom Utils
-# TODO: pleb_ui
+include_recipe "desktop::pleb_ui"
 
 # i3 with Gaps
 include_recipe "desktop::i3-gaps"

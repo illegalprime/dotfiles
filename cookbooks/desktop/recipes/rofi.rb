@@ -56,6 +56,5 @@ end
 bash "install_rofi" do
     cwd node[:rofi][:src]
     code "make install"
-    creates node[:rofi][:bin]
     action :nothing
 end
