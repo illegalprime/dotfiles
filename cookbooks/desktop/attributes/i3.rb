@@ -108,7 +108,7 @@ normal[:i3][:focus] = {
     :down   => [Super, "j"],
     :toggle => [Super, "space"],
     :parent => [Super, "a"],
-    :child  => [Super, "d"],
+    :child  => [Super, "x"],
 }
 
 # Move windows around a workspace
