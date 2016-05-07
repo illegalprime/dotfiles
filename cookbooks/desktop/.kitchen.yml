@@ -21,4 +21,5 @@ suites:
       - recipe[desktop::i3]
       - recipe[desktop::vim]
       - recipe[desktop::compton]
+      - recipe[desktop::vimperator]
     attributes:
