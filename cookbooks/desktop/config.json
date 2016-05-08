@@ -3,6 +3,7 @@
         "recipe[desktop::default]",
         "recipe[desktop::git]",
         "recipe[desktop::network-manager]",
+        "recipe[desktop::bin]",
         "recipe[desktop::irssi]",
         "recipe[desktop::compton]",
         "recipe[desktop::lightdm]",
