@@ -12,3 +12,4 @@ default[:pleb_ui] = File.join node[:personal_bin], "pleb_ui"
 default[:wifi] = wireless_ifaces[0]
 
 default[:ppas] = []
+default[:startup] = []

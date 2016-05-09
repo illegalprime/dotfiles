@@ -2,6 +2,7 @@
     "run_list": [
         "recipe[desktop::default]",
         "recipe[desktop::git]",
+        "recipe[desktop::network-manager]",
         "recipe[desktop::i3]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",

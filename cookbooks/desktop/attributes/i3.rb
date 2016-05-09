@@ -21,8 +21,7 @@ normal[:i3][:fonts] = [
 ]
 
 # Startup applications
-normal[:i3][:startup] = [
-    "nm-applet",
+normal[:i3][:startup] = node[:startup] + [
     "redshift-gtk || redshift-gtk",
     "light-locker --lock-on-suspend",
     "nitrogen --restore",

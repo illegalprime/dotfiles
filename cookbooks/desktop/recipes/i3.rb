@@ -31,10 +31,6 @@ end
     "scrot",
     "lightdm", # dm-tool
     "recipe:desktop::pleb_ui", # Custom Utils that I wrote
-    {   # For nm-applet
-        "ubuntu" => "network-manager",
-        "arch" => "networkmanager",
-    },
     {
         "ubuntu" => "redshift-gtk",
         "arch" => "redshift",
