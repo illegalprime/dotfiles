@@ -44,3 +44,9 @@ def multipack pkg_name
         end
     end
 end
+
+def wireless_ifaces
+    node[:network][:interfaces].keys.select do |interface|
+        File.directory? (File.join "/sys/class/net", interface, "wireless")
+    end
+end

@@ -237,13 +237,13 @@ normal[:i3][:status] = {
     :order => [
         "load",
         "disk /",
-        "wireless wlan0",
+        "wireless #{node[:wifi]}",
         "volume master",
         "battery 0",
         "tztime local",
     ],
     :indicators => {
-        "wireless wlan0" => {
+        "wireless #{node[:wifi]}" => {
             "format_up" => "(%quality @ %essid) %ip icons:rss",
             "format_down" => "down icons:rss",
         },
