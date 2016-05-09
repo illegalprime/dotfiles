@@ -1,8 +1,9 @@
 # i3 Config Directory
-default[:i3][:config_path] = File.join(node[:home], ".i3/config")
+default[:i3][:config_dir] = File.join node[:home], ".i3"
+default[:i3][:config_path] = File.join node[:i3][:config_dir], "config"
 
 # i3-status Config Directory
-default[:i3][:status_config_path] = File.join(default[:home], ".i3status.conf")
+default[:i3][:status_config_path] = File.join default[:home], ".i3status.conf"
 
 default[:i3][:super] = "Mod4"
 default[:i3][:alt] = "Mod1"

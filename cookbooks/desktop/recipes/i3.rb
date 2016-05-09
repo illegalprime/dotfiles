@@ -3,6 +3,11 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+directory node[:i3][:config_dir] do
+    user node[:user]
+    group node[:user]
+end
+
 # Configure i3 wm
 template node[:i3][:config_path] do
     user node[:user]
@@ -18,26 +23,49 @@ template node[:i3][:status_config_path] do
 end
 
 # Install i3 extra utils
-package "network-manager" # nm-applet
-package "redshift-gtk"
-package "light-locker"
-package "nitrogen"
-package "compton"
-package "rxvt-unicode" # urxvt
-package "zsh"
-package "firefox"
-package "nautilus"
-package "scrot"
-package "xcalib"
-package "lightdm" # dm-tool
-package "x11-xserver-utils" # xmodmap, xset
+# For nm-applet
+multipack({
+    "ubuntu" => "network-manager",
+    "arch" => "networkmanager",
+})
+multipack({
+    "ubuntu" => "redshift-gtk",
+    "arch" => "redshift",
+})
+multipack "light-locker"
+multipack "nitrogen"
+multipack "compton"
+multipack "rxvt-unicode" # urxvt
+multipack "zsh"
+multipack "firefox"
+multipack "nautilus"
+multipack "scrot"
+multipack({
+    "ubuntu" => "xcalib",
+    "arch" => "aur:xcalib",
+})
+multipack "lightdm" # dm-tool
+multipack({
+    "ubuntu" => "x11-xserver-utils",
+    "arch" => [
+        "xorg-xmodmap",
+        "xorg-xset",
+    ],
+})
+multipack({
+    "ubuntu" => "recipe:desktop::xcape",
+    "arch" => "aur:xcape",
+})
+multipack({
+    "ubuntu" => "recipe:desktop::rofi",
+    "arch" => "rofi",
+})
 
-# Install less popular utils
-include_recipe "desktop::xcape"
-include_recipe "desktop::rofi"
-
-# Custom Utils
+# Custom Utils that I wrote
 include_recipe "desktop::pleb_ui"
 
 # i3 with Gaps
-include_recipe "desktop::i3-gaps"
+multipack({
+    "ubuntu" => "recipe:desktop::i3-gaps",
+    "arch" => "aur:i3-gaps-next-git",
+})
