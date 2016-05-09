@@ -49,7 +49,7 @@ mode "resize" {
         bindsym <%= node[:i3][:resize][:grow][:height] %> resize grow height <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
         bindsym <%= node[:i3][:resize][:shrink][:height] %> resize shrink height <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
         bindsym <%= node[:i3][:resize][:grow][:width] %> resize grow width <%= node[:i3][:resize][:amount] %> px or <%= node[:i3][:resize][:amount] %> ppt
-        bindsym <%= node[:i3][:default] %> mode "default"
+        bindsym <%= node[:i3][:default].join("+") %> mode "default"
 }
 
 <% bar_config = node[:i3][:bar] %>
