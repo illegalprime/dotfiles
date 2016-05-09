@@ -35,8 +35,6 @@ normal[:i3][:startup] = node[:startup] + [
 if node[:platform] == "ubuntu"
     normal[:i3][:startup] += [
         "unity-settings-daemon &",
-        "gsettings set org.gnome.desktop.lockdown disable-lock-screen true",
-        "gsettings set org.gnome.desktop.background show-desktop-icons false",
     ]
 end
 
@@ -51,15 +49,15 @@ normal[:i3][:apps] = [
         :sym => [Alt, "Shift", "l"],
     },
     {
-        :cmd => "firefox",
+        :cmd => node[:browser],
         :sym => [Alt, "w"],
     },
     {
-        :cmd => "firefox --private-window",
+        :cmd => node[:private_browser],
         :sym => [Alt, "Shift", "w"],
     },
     {
-        :cmd => "nautilus --no-desktop",
+        :cmd => node[:file_explorer],
         :sym => [Alt, "f"],
     },
     {

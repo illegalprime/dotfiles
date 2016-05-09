@@ -1,7 +1,6 @@
 #
 # Cookbook Name:: desktop
 # Recipe:: default
-
 multipack({
     "ubuntu" => "build-essential",
     "arch" => "group:base-devel",
@@ -17,7 +16,11 @@ directory node[:cde] do
     group node[:user]
 end
 
-def ubuntu
+############################
+# Platform specific things #
+############################
+case node[:platform]
+when "ubuntu"
     # Add all the ppas
     node[:ppas].each do |ppa|
         apt_repository ppa[4..-1].gsub(/\//, "-") do
@@ -30,10 +33,4 @@ def ubuntu
     apt_update "simple" do
         action :periodic
     end
-end
-
-# Platform specific things
-case node[:platform]
-when "ubuntu"
-    ubuntu
 end

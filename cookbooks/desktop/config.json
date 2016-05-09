@@ -4,6 +4,8 @@
         "recipe[desktop::git]",
         "recipe[desktop::network-manager]",
         "recipe[desktop::compton]",
+        "recipe[desktop::lightdm]",
+        "recipe[desktop::nautilus]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
         "recipe[desktop::zsh]",

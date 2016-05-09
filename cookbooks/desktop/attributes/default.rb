@@ -12,9 +12,14 @@ default[:pleb_ui] = File.join node[:personal_bin], "pleb_ui"
 default[:wifi] = wireless_ifaces[0]
 # Other apps specify how to perform actions
 # Consumer apps like i3 keyboard shortcuts will use
-default[:ipc] = {
-    :lock => "",
-}
+# Current IPCs defined:
+# -> :lock
+default[:ipc] = {}
+
+# Used in places like i3 to determine default apps
+# -> :browser
+# -> :private_browser
+# -> :file_explorer
 
 default[:ppas] = []
 default[:startup] = []
