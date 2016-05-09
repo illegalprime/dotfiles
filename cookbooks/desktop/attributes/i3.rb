@@ -19,7 +19,7 @@ main_font = :oxygen
 main_font_size = 11
 
 # Startup applications
-normal[:i3][:startup] = node[:startup] + [
+normal[:i3][:startup] = [
     "redshift-gtk || redshift-gtk",
     "nitrogen --restore",
     "xmodmap -e 'clear Lock'",
