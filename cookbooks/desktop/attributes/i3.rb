@@ -25,7 +25,6 @@ normal[:i3][:startup] = node[:startup] + [
     "redshift-gtk || redshift-gtk",
     "light-locker --lock-on-suspend",
     "nitrogen --restore",
-    "compton",
     "xmodmap -e 'clear Lock'",
     "xcape -e 'Control_L=Escape;Caps_Lock=Escape'",
     "xset -dpms",

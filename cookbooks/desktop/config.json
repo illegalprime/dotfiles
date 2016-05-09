@@ -3,10 +3,10 @@
         "recipe[desktop::default]",
         "recipe[desktop::git]",
         "recipe[desktop::network-manager]",
-        "recipe[desktop::i3]",
+        "recipe[desktop::compton]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
-        "recipe[desktop::compton]",
-        "recipe[desktop::zsh]"
+        "recipe[desktop::zsh]",
+        "recipe[desktop::i3]"
     ]
 }
