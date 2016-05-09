@@ -1,12 +1,27 @@
-package "vim"
+[
+    "vim",
+    # For you complete me
+    "cmake",
+    "clang",
+    {
+        "ubuntu" => [
+            "python-dev",
+            "python3-dev",
+        ],
+        "arch" => [
+            "python2",
+            "python3",
+        ],
+    },
+    {
+        "ubuntu" => "build-essential",
+        "arch" => "group:base-devel",
+    },
+].each do |to_install|
+    multipack to_install
+end
 
-# For you complete me
-package "python-dev"
-package "python3-dev"
-package "cmake"
-package "build-essential"
-package "clang"
-package "npm" do
+multipack "npm" do
     notifies :run, "bash[update-node]", :immediately
 end
 

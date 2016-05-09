@@ -1,4 +1,7 @@
-package "rust-stable"
+multipack({
+    "ubuntu" => "rust-stable",
+    "arch" => "rust",
+ })
 
 # Downlaod the source
 git node[:rust][:src] do

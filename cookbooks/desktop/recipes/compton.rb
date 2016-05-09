@@ -1,4 +1,4 @@
-package "compton"
+multipack "compton"
 
 # Create a simple config file
 template node[:compton][:config] do

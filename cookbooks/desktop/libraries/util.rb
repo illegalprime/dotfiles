@@ -27,7 +27,7 @@ def multipack pkg_name
             type, name = single_pkg.split ":", 2
             case type
             when "recipe"
-                include_recipe recipe
+                include_recipe name
             when "aur"
                 fail if node[:platform] != "arch"
                 pacman_aur name

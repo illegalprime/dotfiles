@@ -1,10 +1,12 @@
-package "zsh"
-package "curl"
-package "python3"
-package "gnome-keyring"
-package "sudo"
-package "tar"
-package "inotify-tools"
+multipack([
+    "zsh",
+    "curl",
+    "python3",
+    "gnome-keyring",
+    "sudo",
+    "tar",
+    "inotify-tools",
+])
 
 template node[:zsh][:rc] do
     user node[:user]

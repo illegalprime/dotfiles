@@ -1,4 +1,4 @@
-package "firefox"
+multipack "firefox"
 
 # Create the directory plugin
 directories node[:home], node[:vimperator][:plugin] do

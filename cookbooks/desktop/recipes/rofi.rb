@@ -1,28 +1,30 @@
-package "libxinerama1"
-package "libxinerama-dev"
-package "libxft2"
-package "libpango-1.0-0"
-package "libpangocairo-1.0-0"
-package "libpango1.0-dev"
-package "libcairo2"
-package "libcairo2-dev"
-package "libglib2.0-0"
-package "libglib2.0-dev"
-package "libx11-6"
-package "libx11-dev"
-package "libstartup-notification0"
-package "libstartup-notification0-dev"
-package "libxkbcommon0"
-package "libxkbcommon-dev"
-package "libxkbcommon-x11-0"
-package "libxkbcommon-x11-dev"
-package "libxcb1"
-package "libxcb1-dev"
-package "libx11-xcb1"
-package "libx11-xcb-dev"
-package "libxcb-util0"
-package "libxcb-util0-dev"
-package "dh-autoreconf"
+multipack([
+    "libxinerama1",
+    "libxinerama-dev",
+    "libxft2",
+    "libpango-1.0-0",
+    "libpangocairo-1.0-0",
+    "libpango1.0-dev",
+    "libcairo2",
+    "libcairo2-dev",
+    "libglib2.0-0",
+    "libglib2.0-dev",
+    "libx11-6",
+    "libx11-dev",
+    "libstartup-notification0",
+    "libstartup-notification0-dev",
+    "libxkbcommon0",
+    "libxkbcommon-dev",
+    "libxkbcommon-x11-0",
+    "libxkbcommon-x11-dev",
+    "libxcb1",
+    "libxcb1-dev",
+    "libx11-xcb1",
+    "libx11-xcb-dev",
+    "libxcb-util0",
+    "libxcb-util0-dev",
+    "dh-autoreconf",
+])
 
 # sync rofi with repo
 git node[:rofi][:src] do

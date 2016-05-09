@@ -1,17 +1,19 @@
-package "libxcb1-dev"
-package "libxcb-keysyms1-dev"
-package "libpango1.0-dev"
-package "libxcb-util0-dev"
-package "libxcb-icccm4-dev"
-package "libyajl-dev"
-package "libstartup-notification0-dev"
-package "libxcb-randr0-dev"
-package "libev-dev"
-package "libxcb-cursor-dev"
-package "libxcb-xinerama0-dev"
-package "libxcb-xkb-dev"
-package "libxkbcommon-dev"
-package "libxkbcommon-x11-dev"
+multipack([
+    "libxcb1-dev",
+    "libxcb-keysyms1-dev",
+    "libpango1.0-dev",
+    "libxcb-util0-dev",
+    "libxcb-icccm4-dev",
+    "libyajl-dev",
+    "libstartup-notification0-dev",
+    "libxcb-randr0-dev",
+    "libev-dev",
+    "libxcb-cursor-dev",
+    "libxcb-xinerama0-dev",
+    "libxcb-xkb-dev",
+    "libxkbcommon-dev",
+    "libxkbcommon-x11-dev",
+])
 
 # sync i3-gaps with repo
 git node[:i3][:src] do

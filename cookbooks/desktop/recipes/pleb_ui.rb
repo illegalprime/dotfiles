@@ -1,7 +1,18 @@
-package "cargo-stable"
-
-package "libsndfile1"
-package "libsndfile1-dev"
+[
+    {
+        "ubuntu" => [
+            "libsndfile1",
+            "libsndfile1-dev",
+        ],
+        "arch" => "libsndfile",
+    },
+    {
+        "ubuntu" => "cargo-stable",
+        "arch" => "aur:cargo-bin",
+    },
+].each do |to_install|
+    multipack to_install
+end
 
 # sync syshooks with repo
 git node[:syshooks][:src] do
