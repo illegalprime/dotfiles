@@ -10,7 +10,7 @@
         ],
         "arch" => [
             "python2",
-            "python3",
+            "python",
         ],
     },
     {
