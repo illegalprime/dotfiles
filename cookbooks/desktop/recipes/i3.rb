@@ -21,15 +21,10 @@ end
 
 # Install i3 extra utils
 [
-    "light-locker",
     "nitrogen",
-    "compton",
     "rxvt-unicode", # urxvt
-    "zsh",
-    "firefox",
     "nautilus",
     "scrot",
-    "lightdm", # dm-tool
     "recipe:desktop::pleb_ui", # Custom Utils that I wrote
     {
         "ubuntu" => "redshift-gtk",

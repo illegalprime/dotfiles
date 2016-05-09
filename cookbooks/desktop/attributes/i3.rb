@@ -23,7 +23,6 @@ normal[:i3][:fonts] = [
 # Startup applications
 normal[:i3][:startup] = node[:startup] + [
     "redshift-gtk || redshift-gtk",
-    "light-locker --lock-on-suspend",
     "nitrogen --restore",
     "xmodmap -e 'clear Lock'",
     "xcape -e 'Control_L=Escape;Caps_Lock=Escape'",
@@ -48,7 +47,7 @@ normal[:i3][:apps] = [
         :sym => [Super, "Return"],
     },
     {
-        :cmd => "dm-tool lock",
+        :cmd => node[:ipc][:lock],
         :sym => [Alt, "Shift", "l"],
     },
     {
