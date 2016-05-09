@@ -1,0 +1,11 @@
+{
+    "run_list": [
+        "recipe[desktop::default]",
+        "recipe[desktop::git]",
+        "recipe[desktop::i3]",
+        "recipe[desktop::vim]",
+        "recipe[desktop::vimperator]",
+        "recipe[desktop::compton]",
+        "recipe[desktop::zsh]"
+    ]
+}

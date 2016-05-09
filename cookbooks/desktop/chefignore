@@ -2,6 +2,10 @@
 # to a chef-server or supermarket.
 # Lines that start with '# ' are comments.
 
+# Local Mode #
+##############
+local-mode-cache
+
 # OS generated files #
 ######################
 .DS_Store
