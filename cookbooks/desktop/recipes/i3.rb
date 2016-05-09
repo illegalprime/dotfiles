@@ -26,6 +26,11 @@ end
     "nautilus",
     "scrot",
     "recipe:desktop::pleb_ui", # Custom Utils that I wrote
+    node[:i3][:font][:package], # current font
+    {   # For a bunch of icons
+        "ubuntu" => "fonts-font-awesome",
+        "arch" => "aur:ttf-font-awesome",
+    },
     {
         "ubuntu" => "redshift-gtk",
         "arch" => "redshift",

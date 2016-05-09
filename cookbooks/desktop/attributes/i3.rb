@@ -15,10 +15,8 @@ Super = node[:i3][:super]
 Alt = node[:i3][:alt]
 
 # i3 Settings
-normal[:i3][:fonts] = [
-    "pango:FontAwesome",
-    "Oxygen Mono Regular 11",
-]
+main_font = :oxygen
+main_font_size = 11
 
 # Startup applications
 normal[:i3][:startup] = node[:startup] + [
@@ -172,6 +170,24 @@ normal[:i3][:hide_decorations] = true
 normal[:i3][:gaps] = {
     :inner => 5,
 }
+
+normal[:i3][:avail_fonts] = {
+    :oxygen => {
+        :family => "Oxygen Mono Regular",
+        :package => {
+            "ubuntu" => "ttf-oxygen-font-family",
+            "arch" => "ttf-oxygen",
+        },
+    },
+}
+
+normal[:i3][:font] = node[:i3][:avail_fonts][main_font]
+normal[:i3][:font][:size] = main_font_size
+
+normal[:i3][:fonts] = [
+    "pango:FontAwesome",
+    "#{node[:i3][:font][:family]} #{main_font_size}",
+]
 
 normal[:i3][:bar] = {
     :status => "i3status",
