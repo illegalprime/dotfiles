@@ -5,7 +5,7 @@ multipack({
 })
 
 # Autostart the gtk applet
-node[:startup].push("nm-applet")
+node[:startup].push "nm-applet"
 
 # Start the service
 service ({

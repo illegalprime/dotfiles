@@ -1,4 +1,4 @@
-multipack([
+multipack [
     "libxcb1-dev",
     "libxcb-keysyms1-dev",
     "libpango1.0-dev",
@@ -13,7 +13,7 @@ multipack([
     "libxcb-xkb-dev",
     "libxkbcommon-dev",
     "libxkbcommon-x11-dev",
-])
+]
 
 # sync i3-gaps with repo
 git node[:i3][:src] do

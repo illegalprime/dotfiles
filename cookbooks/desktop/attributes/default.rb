@@ -14,12 +14,10 @@ default[:wifi] = wireless_ifaces[0]
 # Consumer apps like i3 keyboard shortcuts will use
 # Current IPCs defined:
 # -> :lock
-default[:ipc] = {}
-
-# Used in places like i3 to determine default apps
 # -> :browser
 # -> :private_browser
 # -> :file_explorer
+default[:ipc] = {}
 
 default[:ppas] = []
 default[:startup] = []

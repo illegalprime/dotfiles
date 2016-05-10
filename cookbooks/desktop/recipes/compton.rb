@@ -1,6 +1,6 @@
 multipack "compton"
 
-node[:startup].push("compton")
+node[:startup].push "compton"
 
 # Create a simple config file
 template node[:compton][:config] do

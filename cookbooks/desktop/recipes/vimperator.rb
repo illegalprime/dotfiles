@@ -1,8 +1,8 @@
 multipack "firefox"
 
 # Provide 'browser' and 'private_browser'
-node.normal[:browser] = "firefox"
-node.normal[:private_browser] = "firefox --private-window"
+node[:ipc].store :browser, "firefox"
+node[:ipc].store :private_browser, "firefox --private-window"
 
 # Create the directory plugin
 directories node[:home], node[:vimperator][:plugin] do

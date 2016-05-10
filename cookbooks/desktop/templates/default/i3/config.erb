@@ -5,7 +5,11 @@
 font <%= node[:i3][:fonts].join(",") %>
 
 <%for app in node[:i3][:apps] %>
-bindsym <%= app[:sym].join("+") %> exec <%= app[:cmd] %>
+bindsym <%= app[:sym].join("+") %> exec <%= if app[:cmd].is_a? Symbol
+    node[:ipc][app[:cmd]]
+else
+    app[:cmd]
+end %>
 <% end  %>
 
 floating_modifier <%= node[:i3][:floating_modifier] %>

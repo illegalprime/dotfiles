@@ -1,10 +1,10 @@
 # install libraries to build
-multipack([
+multipack [
     "libxtst-dev",
     "libx11-dev",
     "libxtst6",
     "libx11-6",
-])
+]
 
 # sync xcape with repo
 git node[:xcape][:src] do

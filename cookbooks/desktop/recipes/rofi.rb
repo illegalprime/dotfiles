@@ -1,4 +1,4 @@
-multipack([
+multipack [
     "libxinerama1",
     "libxinerama-dev",
     "libxft2",
@@ -24,7 +24,7 @@ multipack([
     "libxcb-util0",
     "libxcb-util0-dev",
     "dh-autoreconf",
-])
+]
 
 # sync rofi with repo
 git node[:rofi][:src] do

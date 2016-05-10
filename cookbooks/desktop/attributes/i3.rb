@@ -43,19 +43,19 @@ normal[:i3][:apps] = [
         :sym => [Super, "Return"],
     },
     {
-        :cmd => node[:ipc][:lock],
+        :cmd => :lock,
         :sym => [Alt, "Shift", "l"],
     },
     {
-        :cmd => node[:browser],
+        :cmd => :browser,
         :sym => [Alt, "w"],
     },
     {
-        :cmd => node[:private_browser],
+        :cmd => :private_browser,
         :sym => [Alt, "Shift", "w"],
     },
     {
-        :cmd => node[:file_explorer],
+        :cmd => :file_explorer,
         :sym => [Alt, "f"],
     },
     {
