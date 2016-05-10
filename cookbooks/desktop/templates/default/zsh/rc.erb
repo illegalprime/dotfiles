@@ -37,6 +37,9 @@ fi
 ###########
 # Sources #
 ###########
+<% if node[:zsh][:git_prompt][:use_haskell] %>
+GIT_PROMPT_EXECUTABLE="haskell"
+<% end %>
 source <%= node[:zsh][:git_prompt][:rc] %>
 
 ################
