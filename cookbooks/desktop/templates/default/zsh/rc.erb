@@ -42,6 +42,11 @@ GIT_PROMPT_EXECUTABLE="haskell"
 <% end %>
 source <%= node[:zsh][:git_prompt][:rc] %>
 
+# Configure Git Zsh Prompt
+<% node[:zsh][:git_prompt][:style].each do |part, content| %>
+ZSH_THEME_GIT_PROMPT_<%= part.to_s.upcase %>="<%= content %>"
+<% end %>
+
 ################
 # Autocomplete #
 ################

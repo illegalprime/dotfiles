@@ -6,6 +6,20 @@ default[:zsh][:git_prompt][:src] = File.join node[:personal_bin], "zsh-git-promp
 default[:zsh][:git_prompt][:rc] = File.join node[:zsh][:git_prompt][:src], "zshrc.sh"
 default[:zsh][:git_prompt][:use_haskell] = true
 
+default[:zsh][:git_prompt][:style] = {
+    :prefix    => "(",
+    :suffix    => ")",
+    :separator => "|",
+    :branch    => "%{$fg_bold[magenta]%}",
+    :staged    => "%{$fg[red]%}%{●%G%}",
+    :conflicts => "%{$fg[red]%}%{✖%G%}",
+    :changed   => "%{$fg[blue]%}%{✚%G%}",
+    :behind    => "%{↓%G%}",
+    :ahead     => "%{↑%G%}",
+    :untracked => "%{…%G%}",
+    :clean     => "%{$fg_bold[green]%}%{✔%G%}",
+}
+
 normal[:zsh][:paths] = [
     node[:personal_bin],
     node[:nodejs_bin],
