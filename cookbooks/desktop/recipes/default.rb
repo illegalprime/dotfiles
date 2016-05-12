@@ -6,6 +6,14 @@ multipack({
     "arch" => "group:base-devel",
 })
 
+user node[:user] do
+    comment 'main system user'
+    group node[:user]
+    home node[:home]
+    manage_home true
+    shell node[:shell]
+end
+
 directory node[:personal_bin] do
     owner node[:user]
     group node[:user]

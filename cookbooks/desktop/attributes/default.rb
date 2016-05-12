@@ -2,6 +2,7 @@ default[:user] = "michael"
 default[:home] = File.join "/home", node[:user]
 default[:name] = "Michael Eden"
 default[:email] = "themichaeleden@gmail.com"
+default[:shell] = "/bin/bash"
 
 default[:personal_bin] = File.join node[:home], ".bin"
 default[:cde] = File.join node[:home], "cde"
