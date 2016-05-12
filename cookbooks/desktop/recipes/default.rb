@@ -31,6 +31,11 @@ sudo "privileged-wheel" do
     commands ["ALL"]
 end
 
+directory File.join node[:home], ".config" do
+    owner node[:user]
+    group node[:user]
+end
+
 directory node[:personal_bin] do
     owner node[:user]
     group node[:user]

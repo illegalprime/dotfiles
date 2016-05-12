@@ -12,5 +12,5 @@ service ({
     "ubuntu" => "network-manager",
     "arch" => "NetworkManager",
 })[node[:platform]] do
-    action [:enable, :start]
+    action :enable
 end
