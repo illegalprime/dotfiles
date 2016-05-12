@@ -6,5 +6,5 @@ description 'Installs/Configures desktop'
 long_description 'Installs/Configures desktop'
 version '0.1.0'
 
-depends 'pacman', '~> 1.1.1'
+depends 'pacman', '~> 2.0.1'
 depends 'apt', '~> 3.0.0'

@@ -30,8 +30,9 @@ when "ubuntu"
     end
 
     # Update the apt cache
-    # TODO: same thing for arch
     apt_update "simple" do
         action :periodic
     end
+when "arch"
+    include_recipe "pacman::default"
 end
