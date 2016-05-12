@@ -6,3 +6,6 @@ local-mode-cache
 # Haven't written any tests yet
 spec
 test
+
+# Vim is cool
+*.swp

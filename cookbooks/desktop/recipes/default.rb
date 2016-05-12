@@ -1,10 +1,15 @@
 #
 # Cookbook Name:: desktop
 # Recipe:: default
-multipack({
-    "ubuntu" => "build-essential",
-    "arch" => "group:base-devel",
-})
+[
+    {
+        "ubuntu" => "build-essential",
+        "arch" => "group:base-devel",
+    },
+    "sudo",
+].each do |to_install|
+    multipack to_install
+end
 
 user node[:user] do
     comment 'main system user'
@@ -12,6 +17,18 @@ user node[:user] do
     home node[:home]
     manage_home true
     shell node[:shell]
+end
+
+group "wheel" do
+    members node[:user]
+    action :modify
+    append true
+end
+
+sudo "privileged-wheel" do
+    user "%wheel"
+    runas "ALL"
+    commands ["ALL"]
 end
 
 directory node[:personal_bin] do

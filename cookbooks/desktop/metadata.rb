@@ -8,3 +8,4 @@ version '0.1.0'
 
 depends 'pacman', '~> 2.0.1'
 depends 'apt', '~> 3.0.0'
+depends 'sudo', '~> 2.9.0'
