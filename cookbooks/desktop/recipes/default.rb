@@ -34,16 +34,25 @@ end
 directory File.join node[:home], ".config" do
     owner node[:user]
     group node[:user]
+    mode 0755
 end
 
 directory node[:personal_bin] do
     owner node[:user]
     group node[:user]
+    mode 0755
 end
 
 directory node[:cde] do
     owner node[:user]
     group node[:user]
+    mode 0755
+end
+
+directory node[:xresources_dir] do
+    owner node[:user]
+    group node[:user]
+    mode 0755
 end
 
 ############################

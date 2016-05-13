@@ -11,6 +11,8 @@
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
         "recipe[desktop::zsh]",
-        "recipe[desktop::i3]"
+        "recipe[desktop::urxvt]",
+        "recipe[desktop::i3]",
+        "recipe[desktop::xresources]"
     ]
 }

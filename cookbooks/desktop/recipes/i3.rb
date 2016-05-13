@@ -27,6 +27,7 @@ end
     "nautilus",
     "scrot",
     "recipe:desktop::pleb_ui", # Custom Utils that I wrote
+    "recipe:desktop::rofi",
     node[:i3][:font][:package], # current font
     {   # For a bunch of icons
         "ubuntu" => "fonts-font-awesome",
@@ -50,10 +51,6 @@ end
     {
         "ubuntu" => "recipe:desktop::xcape",
         "arch" => "aur:xcape",
-    },
-    {
-        "ubuntu" => "recipe:desktop::rofi",
-        "arch" => "rofi",
     },
     {   # i3 with Gaps
         "ubuntu" => "recipe:desktop::i3-gaps",

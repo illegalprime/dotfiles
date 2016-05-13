@@ -1,0 +1,4 @@
+! Xresources managed by Chef for <%= @application %> on <%= node[:fqdn] %>
+<% @settings.each do |setting, value| %>
+<%= @application %>.<%= setting %>: <%= value %>
+<% end %>
