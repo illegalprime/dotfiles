@@ -31,7 +31,7 @@ def multipack pkg_name
             when "aur"
                 fail if node[:platform] != "arch"
                 pacman_aur name do
-                    build_dir "/tmp"
+                    build_dir "/tmp/#{name}"
                     action :sync
                 end
             when "group"

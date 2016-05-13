@@ -52,19 +52,19 @@ template node[:vim][:rc] do
     user node[:user]
     group node[:user]
     source "vimrc.erb"
-    notifies :run, "bash[update-plugins]", :immediately
+    notifies :run, "bash[update-vim-plugins]", :immediately
 end
 
 # Update all the plugins
-bash "update-plugins" do
+bash "update-vim-plugins" do
     user node[:user]
     group node[:user]
+    environment "HOME" => node[:home]
     code <<-FIN
         set -eu
         yes | vim +PluginClean +qall
         vim +PluginInstall +qall
     FIN
-    action :nothing
 end
 
 # Compile you complete me
@@ -72,6 +72,7 @@ bash "compile_ycm" do
     cwd node[:vim][:ycm][:src]
     user node[:user]
     group node[:user]
+    environment "HOME" => node[:home]
     code <<-FIN
         set -eu
         ./install.py --clang-completer --tern-completer --racer-completer

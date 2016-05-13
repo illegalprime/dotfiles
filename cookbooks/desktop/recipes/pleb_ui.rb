@@ -7,6 +7,10 @@
         "arch" => "libsndfile",
     },
     {
+        "ubuntu" => "ilbopenal-dev",
+        "arch" => "openal",
+    },
+    {
         "ubuntu" => "cargo-stable",
         "arch" => "aur:cargo-bin",
     },
