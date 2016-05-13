@@ -3,6 +3,11 @@ default[:urxvt][:font] = font
 default[:urxvt][:font_family] = node[:avail_fonts][font][:family]
 default[:urxvt][:font_size] = 16
 
+if node[:urxvt][:font] == :oxygen
+    # some special thing about urxvt?
+    override[:urxvt][:font_family] = "Oxygen Mono"
+end
+
 normal[:urxvt][:xresources] = {
     "iso14755" => false,
     "scrollBar" => false,

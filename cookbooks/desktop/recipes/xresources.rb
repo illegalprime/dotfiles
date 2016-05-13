@@ -1,3 +1,8 @@
+multipack({
+    "ubuntu" => "x11-server-utils",
+    "arch" => "xorg-xrdb",
+})
+
 file File.join node[:home], ".Xresources" do
     user node[:user]
     group node[:user]

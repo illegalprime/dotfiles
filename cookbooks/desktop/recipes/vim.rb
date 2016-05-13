@@ -17,6 +17,10 @@
         "ubuntu" => "build-essential",
         "arch" => "group:base-devel",
     },
+    {
+        "ubuntu" => "libtinfo5",
+        "arch" => "aur:libtinfo-5",
+    },
 ].each do |to_install|
     multipack to_install
 end
