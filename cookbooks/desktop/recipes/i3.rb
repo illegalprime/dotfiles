@@ -21,6 +21,7 @@ end
 
 # Install i3 extra utils
 [
+    "i3status",
     "nitrogen",
     "rxvt-unicode", # urxvt
     "nautilus",

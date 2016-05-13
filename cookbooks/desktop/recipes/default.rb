@@ -12,7 +12,7 @@
 end
 
 user node[:user] do
-    comment 'main system user'
+    comment node[:name]
     group node[:user]
     home node[:home]
     manage_home true
