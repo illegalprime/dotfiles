@@ -1,7 +1,24 @@
-multipack [
+[
     "lightdm",
     "light-locker",
-]
+    {
+        "ubuntu" => "xserver-xorg",
+        "arch" => [
+            "xf86-input-evdev",
+            "xorg-server",
+        ],
+    },
+    {
+        "ubuntu" => "unity-greeter",
+        "arch" => "lightdm-gtk-greeter",
+    },
+    {
+        "ubuntu" => "xserver-xorg-video-intel",
+        "arch" => "xf86-video-intel",
+    },
+].each do |to_install|
+    multipack to_install
+end
 
 # Match the greeter with the locker
 node[:startup].push "light-locker --lock-on-suspend"
