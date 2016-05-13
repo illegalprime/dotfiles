@@ -217,15 +217,8 @@ PATH="${PATH}:<%= node[:zsh][:paths].join(':') %>"
 #############
 # Variables #
 #############
-
 export EDITOR=vim
-export ANDROID_HOME=/home/michael/sdk/android
 export RUST_SRC_PATH=<%= node[:rust][:stdlib] %>
-export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
-
-if [[ -d "$ANDROID_HOME/platform-tools" ]]; then
-    PATH="${PATH}:${ANDROID_HOME}/platform-tools"
-fi
 
 #########
 # Final #

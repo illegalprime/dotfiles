@@ -11,7 +11,7 @@ default[:xresources_dir] = File.join node[:home], ".Xresources.d"
 default[:wifi] = wireless_ifaces[0]
 
 # TODO: Does not belong here:
-default[:node_bin] = File.join node[:personal_bin], "node_modules/.bin"
+default[:nodejs_bin] = File.join node[:personal_bin], "node_modules/.bin"
 default[:pleb_ui] = File.join node[:personal_bin], "pleb_ui"
 
 # Other apps specify how to perform actions
