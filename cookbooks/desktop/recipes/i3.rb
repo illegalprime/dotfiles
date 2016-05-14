@@ -29,13 +29,22 @@ end
     "recipe:desktop::pleb_ui", # Custom Utils that I wrote
     "recipe:desktop::rofi",
     node[:i3][:font][:package], # current font
+    {   # to be able to set caps to control
+        "ubuntu" => "", # TODO: Figure this out
+        "arch" => "xorg-setxkbmap",
+    },
     {   # For a bunch of icons
         "ubuntu" => "fonts-font-awesome",
         "arch" => "aur:ttf-font-awesome",
     },
     {
         "ubuntu" => "redshift-gtk",
-        "arch" => "redshift",
+        "arch" => [
+            "python-xdg",
+            "python-gobject",
+            "librsvg",
+            "redshift",
+        ],
     },
     {
         "ubuntu" => "xcalib",

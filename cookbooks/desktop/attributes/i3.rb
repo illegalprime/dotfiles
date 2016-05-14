@@ -20,13 +20,13 @@ main_font_size = 11
 
 # Startup applications
 normal[:i3][:startup] = [
-    "redshift-gtk || redshift-gtk",
+    "redshift-gtk",
     "nitrogen --restore",
+    "setxkbmap -option ctrl:nocaps",
     "xmodmap -e 'clear Lock'",
     "xcape -e 'Control_L=Escape;Caps_Lock=Escape'",
     "xset -dpms",
     "xset s off",
-    "rofi -key-run SuperL-d -key-window SuperL-grave -key-ssh Alt-s &",
 ]
 
 # Ubuntu-specifics
@@ -97,6 +97,14 @@ normal[:i3][:apps] = [
     {
         :cmd => "i3-dmenu-desktop --dmenu='rofi -dmenu'",
         :sym => ["Control", "Return"],
+    },
+    {
+        :cmd => "rofi -modi run -show run",
+        :sym => [Super, "d"],
+    },
+    {
+        :cmd => "rofi -modi window -show window",
+        :sym => [Super, "grave"],
     },
 ]
 
