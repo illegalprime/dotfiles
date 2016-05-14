@@ -30,3 +30,9 @@ end
 ].each do |to_install|
     multipack to_install
 end
+
+# OS Specific
+case node[:platform]
+when "arch"
+    multipack "aur:apacman"
+end
