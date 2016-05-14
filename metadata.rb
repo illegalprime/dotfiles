@@ -1,11 +1,11 @@
-name 'desktop'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'all_rights'
-description 'Installs/Configures desktop'
-long_description 'Installs/Configures desktop'
-version '0.1.0'
+name "desktop"
+maintainer "Michael Eden"
+maintainer_email "themichaeleden@gmail.com"
+license "GPLv2"
+description "configures personal desktop setup"
+long_description "a replacement for my dotfiles collection by making my computer managed by chef"
+version "0.17.6"
 
-depends 'pacman', '~> 2.0.1'
-depends 'apt', '~> 3.0.0'
-depends 'sudo', '~> 2.9.0'
+depends "pacman", "~> 2.0.1"
+depends "apt", "~> 3.0.0"
+depends "sudo", "~> 2.9.0"
