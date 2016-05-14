@@ -1,9 +1,8 @@
-font = node[:font][:tag]
-default[:urxvt][:font] = font
-default[:urxvt][:font_family] = node[:avail_fonts][font][:family]
+default[:urxvt][:font] = node[:font]
+default[:urxvt][:font_family] = default[:urxvt][:font][:mono]
 default[:urxvt][:font_size] = 16
 
-if node[:urxvt][:font] == :oxygen
+if node[:urxvt][:font][:tag] == :oxygen
     # some special thing about urxvt?
     override[:urxvt][:font_family] = "Oxygen Mono"
 end

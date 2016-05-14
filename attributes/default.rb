@@ -5,6 +5,7 @@ default[:email] = "themichaeleden@gmail.com"
 default[:shell] = "/bin/bash"
 
 font = :oxygen
+default[:config] = File.join node[:home], ".config"
 default[:personal_bin] = File.join node[:home], ".bin"
 default[:cde] = File.join node[:home], "cde"
 default[:xresources_dir] = File.join node[:home], ".Xresources.d"
@@ -27,16 +28,18 @@ default[:startup] = []
 
 default[:avail_fonts] = {
     :oxygen => {
-        :family => "Oxygen Mono Regular",
+        :tag => :oxygen,
+        :mono => "Oxygen Mono Regular",
+        :sans => "Oxygen-Sans",
         :package => {
             "ubuntu" => "ttf-oxygen-font-family",
             "arch" => "ttf-oxygen",
         },
     },
     :dejavu => {
+        :tag => :dejavu,
         :family => "DejaVu Sans Mono",
         :package => "ttf-dejavu",
     },
 }
-default[:font][:tag] = font
-default[:font][:family] = default[:avail_fonts][font][:family]
+default[:font] = default[:avail_fonts][:oxygen]

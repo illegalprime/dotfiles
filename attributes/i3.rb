@@ -14,10 +14,6 @@ default[:i3][:alt] = "Mod1"
 Super = node[:i3][:super]
 Alt = node[:i3][:alt]
 
-# i3 Settings
-main_font = node[:font][:tag]
-main_font_size = 11
-
 # Startup applications
 normal[:i3][:startup] = [
     "redshift-gtk",
@@ -179,10 +175,11 @@ normal[:i3][:gaps] = {
     :inner => 5,
 }
 
-normal[:i3][:font] = node[:avail_fonts][main_font]
+main_font_size = 11
+normal[:i3][:font] = node[:font]
 normal[:i3][:fonts] = [
     "pango:FontAwesome",
-    "#{node[:i3][:font][:family]} #{main_font_size}",
+    "#{node[:i3][:font][:mono]} #{main_font_size}",
 ]
 
 normal[:i3][:bar] = {

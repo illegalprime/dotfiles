@@ -31,7 +31,7 @@ sudo "privileged-wheel" do
     commands ["ALL"]
 end
 
-directory File.join node[:home], ".config" do
+directory File.join node[:config] do
     owner node[:user]
     group node[:user]
     mode 0755

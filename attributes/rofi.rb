@@ -2,7 +2,7 @@ default[:rofi][:git] = "https://github.com/DaveDavenport/rofi.git"
 default[:rofi][:src] = File.join node[:personal_bin], "rofi"
 default[:rofi][:bin] = "/usr/local/bin/rofi"
 default[:rofi][:font_size] = 13
-default[:rofi][:font_family] = node[:font][:family]
+default[:rofi][:font_family] = node[:font][:mono]
 
 normal[:rofi][:xresources] = {
     "font" => "#{node[:rofi][:font_family]} #{node[:rofi][:font_size]}",
