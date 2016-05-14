@@ -55,6 +55,11 @@ directory node[:xresources_dir] do
     mode 0755
 end
 
+# Install all wanted fonts
+node[:avail_fonts].values.each do |font|
+    multipack font[:package]
+end
+
 ############################
 # Platform specific things #
 ############################

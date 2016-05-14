@@ -33,6 +33,10 @@ default[:avail_fonts] = {
             "arch" => "ttf-oxygen",
         },
     },
+    :dejavu => {
+        :family => "DejaVu Sans Mono",
+        :package => "ttf-dejavu",
+    },
 }
 default[:font][:tag] = font
 default[:font][:family] = default[:avail_fonts][font][:family]
