@@ -6,6 +6,9 @@ def directories(from, to, &props)
     end
 end
 
+# TODO: There has to be a better way!
+$installed = Set.new []
+
 def multipack pkg_name
     # Get the real name of the package
     names = if pkg_name.is_a? Hash
@@ -23,6 +26,10 @@ def multipack pkg_name
 
     # Install it specially if it needs it
     for single_pkg in names
+        if ! $installed.add? single_pkg
+            # this package is already marked for installation
+            next
+        end
         if single_pkg.include? ":"
             type, name = single_pkg.split ":", 2
             case type
