@@ -1,4 +1,5 @@
 [
+    "notify-osd",
     {
         "ubuntu" => [
             "libsndfile1",
