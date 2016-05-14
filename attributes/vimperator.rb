@@ -1,6 +1,7 @@
 default[:vimperator][:rc] = File.join node[:home], ".vimperatorrc"
 default[:vimperator][:config] = File.join node[:home], ".vimperator"
 default[:vimperator][:plugin] = File.join node[:vimperator][:config], "plugin"
+default[:vimperator][:firefox_config] = File.join node[:home], ".mozilla/firefox"
 
 normal[:vimperator][:settings] = {
     "defsearch" => "google",
