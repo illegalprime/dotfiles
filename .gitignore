@@ -1,1 +1,12 @@
+# Berkshelf and Building
+berks-cookbooks
+Berksfile.lock
+local-mode-cache
 nodes
+
+# Haven't written any tests yet
+spec
+test
+
+# Vim is cool
+*.swp
