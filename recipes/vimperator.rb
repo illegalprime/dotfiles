@@ -1,4 +1,12 @@
-multipack "firefox"
+[
+    "firefox",
+    {
+        "ubuntu" => "flashplugin-installer",
+        "arch" => "flashplugin",
+    },
+].each do |to_install|
+    multipack to_install
+end
 
 # Provide 'browser' and 'private_browser'
 node[:ipc].store :browser, "firefox"
