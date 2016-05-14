@@ -10,3 +10,23 @@
         mode 0775
     end
 end
+
+# Install extra utility packages
+[
+    "gimp",
+    "file-roller",
+    "vlc",
+    "zip",
+    "unzip",
+    "eog",
+    "evince",
+    "tig",
+    "fortune-mod",
+    "cowsay",
+    {
+        "ubuntu" => "x11-xserver-utils",
+        "arch" => "xorg-xrandr",
+    },
+].each do |to_install|
+    multipack to_install
+end
