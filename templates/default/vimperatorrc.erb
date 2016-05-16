@@ -20,12 +20,6 @@ mapclear
 cmapclear
 imapclear
 
-<% for map in [:noremap, :inoremap, :map] %>
-    <% node[:vimperator][map].each do |key, mapping| %>
-<%= map.id2name %> <%= key %> <%= mapping %>
-    <% end %>
-<% end %>
-
 <% if node[:vimperator][:hide_separator] %>
 highlight ContentSeparator display: none;
 <% end %>
@@ -61,6 +55,12 @@ window.toggle_bottombar = function(show) {
 };
 toggle_bottombar(false);
 EOF
+<% end %>
+
+<% for map in [:noremap, :inoremap, :map] %>
+    <% node[:vimperator][map].each do |key, mapping| %>
+<%= map.id2name %> <%= key %> <%= mapping %>
+    <% end %>
 <% end %>
 
 <% node[:vimperator][:style].each do |element, style| %>
