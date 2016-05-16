@@ -3,6 +3,7 @@
         "recipe[desktop::default]",
         "recipe[desktop::git]",
         "recipe[desktop::network-manager]",
+        "recipe[desktop::bluetooth]",
         "recipe[desktop::pulseaudio]",
         "recipe[desktop::extra]",
         "recipe[desktop::irssi]",
