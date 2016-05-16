@@ -7,6 +7,10 @@ if node[:urxvt][:font][:tag] == :oxygen
     override[:urxvt][:font_family] = "Oxygen Mono"
 end
 
+default[:urxvt][:perl_ext] = "/usr/lib64/urxvt/perl/"
+default[:urxvt][:perl_clipboard] = \
+    File.join node[:urxvt][:perl_ext], "clipboard"
+
 normal[:urxvt][:xresources] = {
     "iso14755" => false,
     "scrollBar" => false,
@@ -15,9 +19,8 @@ normal[:urxvt][:xresources] = {
               "xft:Monospace:size=9" \
               ":antialias=true:hinting=true",
 
-    # TODO: Set this up fully
     "keysym.Shift-Control-V" => "perl:clipboard:paste",
-    "perl-ext-common" => "default,clipboard",
+    "perl-ext-common" => "default,clipboard,selection-to-clipboard",
 
     "depth" => 32,
     "background" => "[100]#2D2D2D",

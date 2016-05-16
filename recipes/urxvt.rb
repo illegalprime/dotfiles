@@ -11,4 +11,11 @@ template File.join node[:xresources_dir], "urxvt.Xresources" do
     })
 end
 
-# TODO: Setup perl Ctrl-Shift-V for pasting
+#######################################
+# Setup perl Ctrl-Shift-V for pasting #
+#######################################
+multipack "xclip"
+
+cookbook_file node[:urxvt][:perl_clipboard] do
+    source "urxvt/perl-ext/clipboard.pl"
+end

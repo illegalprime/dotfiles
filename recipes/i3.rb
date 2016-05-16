@@ -30,7 +30,7 @@ end
     "recipe:desktop::rofi",
     node[:i3][:font][:package], # current font
     {   # to be able to set caps to control
-        "ubuntu" => "", # TODO: Figure this out
+        "ubuntu" => "x11-xkb-utils",
         "arch" => "xorg-setxkbmap",
     },
     {   # For a bunch of icons
