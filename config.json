@@ -9,6 +9,7 @@
         "recipe[desktop::compton]",
         "recipe[desktop::nitrogen]",
         "recipe[desktop::lightdm]",
+        "recipe[desktop::webkit-greeter]",
         "recipe[desktop::nautilus]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
