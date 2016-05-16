@@ -92,11 +92,11 @@ normal[:i3][:apps] = [
     },
     {
         :cmd => "i3-dmenu-desktop --dmenu='rofi -dmenu'",
-        :sym => ["Control", "Return"],
+        :sym => [Super, "d"],
     },
     {
         :cmd => "rofi -modi run -show run",
-        :sym => [Super, "d"],
+        :sym => [Super, "semicolon"],
     },
     {
         :cmd => "rofi -modi window -show window",
