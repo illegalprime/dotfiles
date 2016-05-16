@@ -16,10 +16,6 @@
         "ubuntu" => "xserver-xorg-video-intel",
         "arch" => "xf86-video-intel",
     },
-    {
-        "ubuntu" => "xserver-xorg-input-synaptics",
-        "arch" => "xf86-input-synaptics",
-    }
 ].each do |to_install|
     multipack to_install
 end
