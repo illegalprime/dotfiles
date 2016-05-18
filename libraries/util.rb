@@ -37,9 +37,13 @@ def multipack pkg_name
                 include_recipe name
             when "aur"
                 fail if node[:platform] != "arch"
-                pacman_aur name do
-                    build_dir "/tmp/#{name}"
-                    action :sync
+                if block_given?
+                    pacman_aur name, &Proc.new
+                else
+                    pacman_aur name do
+                        build_dir "/tmp/#{name}"
+                        action :sync
+                    end
                 end
             when "group"
                 fail if node[:platform] != "arch"
