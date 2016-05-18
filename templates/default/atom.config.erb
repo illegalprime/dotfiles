@@ -1,0 +1,23 @@
+"*":
+  core:
+    autoHideMenuBar: true
+    disabledPackages: []
+    themes: [
+      <% for theme in node[:atom][:themes] %>
+      "<%= theme %>"
+      <% end %>
+    ]
+  editor:
+    invisibles: {}
+    showInvisibles: true
+    softWrap: true
+    tabLength: <%= node[:atom][:tab_length] %>
+  "exception-reporting":
+    userId: "d6f2b933-c10c-6e1b-e6b6-047ea19d60b2"
+  racer:
+    cargoHome: "<%= node[:rust][:cargo][:config] %>"
+    racerBinPath: "/home/michael/.cargo/bin/racer"
+    rustSrcPath: "<%= node[:rust][:stdlib] %>"
+  "vim-mode": {}
+  welcome:
+    showOnStartup: false

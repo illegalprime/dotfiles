@@ -15,6 +15,7 @@
         "recipe[desktop::nautilus]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
+        "recipe[desktop::atom]",
         "recipe[desktop::gtk]",
         "recipe[desktop::zsh]",
         "recipe[desktop::urxvt]",
