@@ -15,14 +15,18 @@ end
 [
     "gimp",
     "file-roller",
+    "gksu",
+    "screen",
     "vlc",
     "zip",
     "unzip",
     "eog",
+    "gnome-system-monitor",
     "evince",
     "tig",
     "fortune-mod",
     "cowsay",
+    "ntfs-3g",
     {
         "ubuntu" => "x11-xserver-utils",
         "arch" => "xorg-xrandr",

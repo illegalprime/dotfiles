@@ -28,4 +28,5 @@ normal[:vim][:plugins] = [
     "easymotion/vim-easymotion",
     "terryma/vim-multiple-cursors",
     "Limvot/kraken.vim",
+    "scrooloose/nerdcommenter",
 ]
