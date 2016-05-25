@@ -1,7 +1,8 @@
 # Add extra scripts into the bin folder
 [
     "bin/name",
-].each do |extra|
+]
+.each do |extra|
     name = extra.split(File::SEPARATOR)[-1]
     cookbook_file File.join node[:personal_bin], name do
         owner node[:user]
@@ -22,8 +23,12 @@ end
     "unzip",
     "eog",
     "gnome-system-monitor",
+    "gnome-disk-utility",
+    "gparted",
+    "baobab",
     "evince",
     "tig",
+    "jq",
     "fortune-mod",
     "cowsay",
     "ntfs-3g",
@@ -31,7 +36,8 @@ end
         "ubuntu" => "x11-xserver-utils",
         "arch" => "xorg-xrandr",
     },
-].each do |to_install|
+]
+.each do |to_install|
     multipack to_install
 end
 
