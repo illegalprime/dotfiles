@@ -51,6 +51,13 @@ git node[:vim][:vundle][:src] do
     group node[:user]
 end
 
+# default configuration for tern
+file File.join node[:home], ".tern-config" do
+    owner node[:user]
+    group node[:user]
+    content "{}"
+end
+
 # add the vimrc
 template node[:vim][:rc] do
     user node[:user]
