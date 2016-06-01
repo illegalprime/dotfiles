@@ -1,4 +1,8 @@
 
+# Extra Packages
+
+ - netcat
+
 # Android SDK Recipe (Optional)
 
 ## Packages Required (Arch Linux)

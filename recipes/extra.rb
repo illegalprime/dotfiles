@@ -28,6 +28,7 @@ end
     "baobab",
     "evince",
     "tig",
+    "ranger",
     "jq",
     "fortune-mod",
     "cowsay",
