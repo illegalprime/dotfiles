@@ -30,6 +30,14 @@ end
     "tig",
     "ranger",
     "jq",
+    {
+        "ubuntu" => "zeal",
+        "arch" => "aur:zeal",
+    },
+    {
+        "ubuntu" => "netcat",
+        "arch" => "gnu-netcat",
+    },
     "fortune-mod",
     "cowsay",
     "ntfs-3g",
