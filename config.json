@@ -2,6 +2,7 @@
     "run_list": [
         "recipe[desktop::default]",
         "recipe[desktop::git]",
+        "recipe[desktop::fonts]",
         "recipe[desktop::network-manager]",
         "recipe[desktop::cups]",
         "recipe[desktop::bluetooth]",
@@ -14,6 +15,9 @@
         "recipe[desktop::synaptics]",
         "recipe[desktop::webkit-greeter]",
         "recipe[desktop::nautilus]",
+        "recipe[desktop::rust]",
+        "recipe[desktop::nodejs]",
+        "recipe[desktop::nvim]",
         "recipe[desktop::vim]",
         "recipe[desktop::vimperator]",
         "recipe[desktop::atom]",
