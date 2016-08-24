@@ -31,8 +31,8 @@ if node[:zsh][:git_prompt][:use_haskell]
             key "575159689BEFB442"
             keyserver "keyserver.ubuntu.com"
             action :add
-            deb_src true
-            notifies :run, "apt_update[simple]", :immediately
+            deb_src false
+            notifies :run, "apt_update[apt-update-now]", :immediately
         end
     end
 
@@ -54,6 +54,7 @@ if node[:zsh][:git_prompt][:use_haskell]
         environment "HOME" => node[:home]
         code <<-FIN
             set -euo pipefail
+            stack setup
             stack build
             stack install
         FIN

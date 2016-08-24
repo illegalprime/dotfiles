@@ -20,6 +20,10 @@ user node[:user] do
 end
 
 group "wheel" do
+    action :create
+end
+
+group "wheel" do
     members node[:user]
     action :modify
     append true
@@ -76,6 +80,11 @@ when "ubuntu"
     # Update the apt cache
     apt_update "simple" do
         action :periodic
+    end
+
+    # recipes can notify this block to update the cache
+    apt_update "apt-update-now" do
+        action :nothing
     end
 when "arch"
     include_recipe "pacman::default"

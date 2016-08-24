@@ -1,10 +1,10 @@
 [
     {
-        "ubuntu" => "rust-stable",
+        "ubuntu" => "rustc",
         "arch" => "rust",
     },
     {
-        "ubuntu" => "cargo-stable",
+        "ubuntu" => "cargo",
         "arch" => "aur:cargo-bin",
     },
 ].each do |to_install|

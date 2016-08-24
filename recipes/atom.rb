@@ -2,11 +2,15 @@ multipack ({
     "ubuntu" => "atom",
     "arch" => "aur:atom-editor",
 }) do
-    build_user node[:user]
-    build_group node[:user]
-    build_dir "/tmp/atom-editor"
-    environment "HOME" => node[:home]
-    action :sync
+    if node[:platform] == 'arch'
+        build_user node[:user]
+        build_group node[:user]
+        build_dir "/tmp/atom-editor"
+        environment "HOME" => node[:home]
+        action :sync
+    else
+        action :install
+    end
 end
 
 bash "install atom packages" do
