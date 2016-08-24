@@ -1,0 +1,4 @@
+multipack [
+    'nodejs',
+    'npm',
+]
