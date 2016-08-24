@@ -1,4 +1,8 @@
 
+# Zeal
+
+ - w/ config for many docs
+
 # Extra Packages
 
  - netcat

@@ -31,6 +31,7 @@ normal[:vimperator][:map] = {
     ";" => ":",
     "=" => "zi",
     "-" => "zo",
+    "0" => "zz",
 }
 
 normal[:vimperator][:style][:Hint] = {
