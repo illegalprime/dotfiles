@@ -37,7 +37,7 @@ when "ubuntu"
         "libxcb1-dev",
         "libx11-xcb1",
         "libx11-xcb-dev",
-        "libxcb-util0",
+        "libxcb-util1",
         "libxcb-util0-dev",
         "dh-autoreconf",
     ]

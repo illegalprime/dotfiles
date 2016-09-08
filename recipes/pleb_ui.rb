@@ -8,11 +8,15 @@
         "arch" => "libsndfile",
     },
     {
-        "ubuntu" => "ilbopenal-dev",
+        "ubuntu" => "libopenal-dev",
         "arch" => "openal",
     },
     {
-        "ubuntu" => "cargo-stable",
+        "ubuntu" => "libdbus-1-dev",
+        "arch" => [],
+    },
+    {
+        "ubuntu" => "cargo",
         "arch" => "aur:cargo-bin",
     },
 ].each do |to_install|
