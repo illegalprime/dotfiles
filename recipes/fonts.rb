@@ -15,7 +15,8 @@ for font in node[:fonts][:files]
 end
 
 bash 'refresh-font-cache' do
-    user node[:user]
-    group node[:user]
+    user 'root'
+    group 'root'
     code 'fc-cache -f -v'
+    action :nothing
 end

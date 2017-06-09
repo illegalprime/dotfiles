@@ -16,6 +16,11 @@ end
 #######################################
 multipack "xclip"
 
+directories '/', node[:urxvt][:perl_ext] do
+    user node[:user]
+    group node[:user]
+end
+
 cookbook_file node[:urxvt][:perl_clipboard] do
     source "urxvt/perl-ext/clipboard.pl"
 end

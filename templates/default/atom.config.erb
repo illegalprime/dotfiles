@@ -16,7 +16,7 @@
     userId: "d6f2b933-c10c-6e1b-e6b6-047ea19d60b2"
   racer:
     cargoHome: "<%= node[:rust][:cargo][:config] %>"
-    racerBinPath: "/home/michael/.cargo/bin/racer"
+    racerBinPath: "<%= node[:rust][:racer_bin] %>"
     rustSrcPath: "<%= node[:rust][:stdlib] %>"
   "vim-mode": {}
   welcome:

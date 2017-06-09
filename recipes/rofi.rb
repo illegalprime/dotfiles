@@ -67,14 +67,14 @@ when "ubuntu"
             make
         FIN
         notifies :run, "bash[install_rofi]", :immediately
-        action :nothing
+        creates (File.join node[:rofi][:src], 'build/rofi')
     end
 
     # install rofi
     bash "install_rofi" do
         cwd node[:rofi][:src]
         code "make install"
-        action :nothing
+        creates '/usr/local/bin/rofi'
     end
 when "arch"
     multipack "rofi"

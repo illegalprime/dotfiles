@@ -29,6 +29,7 @@ end
     "evince",
     "tig",
     "ranger",
+    "tree",
     "jq",
     {
         "ubuntu" => "zeal",

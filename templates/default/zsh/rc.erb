@@ -217,8 +217,9 @@ PATH="${PATH}:<%= node[:zsh][:paths].join(':') %>"
 #############
 # Variables #
 #############
-export EDITOR=vim
+export EDITOR=nvim
 export RUST_SRC_PATH=<%= node[:rust][:stdlib] %>
+source '<%= node[:rust][:rust_env] %>'
 
 #########
 # Final #

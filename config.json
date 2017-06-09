@@ -18,7 +18,7 @@
         "recipe[desktop::rust]",
         "recipe[desktop::nodejs]",
         "recipe[desktop::nvim]",
-        "recipe[desktop::vim]",
+        "recipe[desktop::spacemacs]",
         "recipe[desktop::vimperator]",
         "recipe[desktop::atom]",
         "recipe[desktop::gtk]",

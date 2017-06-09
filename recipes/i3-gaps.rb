@@ -13,6 +13,7 @@ multipack [
     "libxcb-xkb-dev",
     "libxkbcommon-dev",
     "libxkbcommon-x11-dev",
+    "libxcb-xrm-dev",
 ]
 
 # sync i3-gaps with repo
@@ -30,15 +31,25 @@ bash "compile_i3-gaps" do
     cwd node[:i3][:src]
     user node[:user]
     group node[:user]
-    code "make"
-    notifies :run, "bash[install_i3-gaps]", :immediately
-    action :nothing
+
+    code <<-FIN
+        # compile & install
+        autoreconf --force --install
+        rm -rf build/
+        mkdir -p build && cd build/
+
+        # Disabling sanitizers is important for release versions!
+        # The prefix and sysconfdir are, obviously, dependent on the distribution.
+        ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+        make
+    FIN
+
+    creates (File.join node[:i3][:src], 'build/i3')
 end
 
 # install i3-gaps
 bash "install_i3-gaps" do
-    cwd node[:i3][:src]
+    cwd (File.join node[:i3][:src], 'build')
     code "make install"
     creates node[:i3][:bin]
-    action :nothing
 end

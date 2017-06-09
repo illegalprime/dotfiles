@@ -1,6 +1,5 @@
 [
     "bluez",
-    "bluez-utils",
     "blueman",
 ]
 .each do |to_install|

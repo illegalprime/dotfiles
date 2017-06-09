@@ -16,8 +16,20 @@
         "arch" => [],
     },
     {
-        "ubuntu" => "cargo",
-        "arch" => "aur:cargo-bin",
+        "ubuntu" => "libasound2-dev",
+        "arch" => "alsa-lib",
+    },
+    {
+        "ubuntu" => "libx11-xcb-dev",
+        "arch" => [], # TODO
+    },
+    {
+        "ubuntu" => "libxcb-randr0-dev",
+        "arch" => [], # TODO
+    },
+    {
+        "ubuntu" => "libxcb-xinerama0-dev",
+        "arch" => [], # TODO
     },
 ].each do |to_install|
     multipack to_install
@@ -51,6 +63,7 @@ bash "compile_syshooks" do
     environment "HOME" => node[:home]
     code <<-FIN
         set -eu
+        source #{node[:rust][:rust_env]}
         cargo build --release
         ln -sf #{node[:syshooks][:built_bin]} #{node[:syshooks][:bin]}
     FIN

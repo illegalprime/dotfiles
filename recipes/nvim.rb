@@ -37,14 +37,18 @@ bash 'install neovim python2 bindings' do
     code "pip2 install neovim"
     user node[:user]
     group node[:user]
+    environment "HOME" => node[:home]
     action :run
+    not_if 'bash -c \'pip2 freeze | grep neovim\''
 end
 
 bash 'install neovim python3 bindings' do
     code "pip3 install neovim"
     user node[:user]
     group node[:user]
+    environment "HOME" => node[:home]
     action :run
+    not_if 'pip3 freeze | grep neovim'
 end
 
 # Create the vim notes directory

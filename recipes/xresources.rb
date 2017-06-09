@@ -1,5 +1,5 @@
 multipack({
-    "ubuntu" => "x11-server-utils",
+    "ubuntu" => "x11-xserver-utils",
     "arch" => "xorg-xrdb",
 })
 

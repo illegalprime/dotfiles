@@ -5,7 +5,7 @@ default[:atom][:themes] = [
     "monokai-seti",
 ]
 default[:atom][:packages] = node[:atom][:themes] + [
-    "vim-mode",
+    "vim-mode-plus",
     "autocomplete-paths",
     "autocomplete-python",
     "language-rust",
@@ -17,4 +17,4 @@ default[:atom][:packages] = node[:atom][:themes] + [
 ]
 
 
-node[:ppas].push "ppa:webupd8team/atom"
+default[:ppas].push "ppa:webupd8team/atom"

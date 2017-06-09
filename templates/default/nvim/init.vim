@@ -268,8 +268,9 @@ set hidden
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_rust_src_path = '/home/michael/.bin/rust/src'
-let g:ycm_global_ycm_extra_conf = '/home/michael/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter = '<%= `which python2`.strip %>'
+let g:ycm_rust_src_path = '<%= node[:rust][:stdlib] %>'
+let g:ycm_global_ycm_extra_conf = '<%= File.join node[:home], ".ycm_extra_conf.py" %>'
 set completeopt-=preview
 
 "
@@ -433,12 +434,12 @@ let g:templates_directory = '/home/michael/.config/nvim/templates'
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=9999
 let g:gitgutter_sign_added='✚'
-let g:gitgutter_sign_modified='✹'
+let g:gitgutter_sign_modified='✱'
 let g:gitgutter_sign_removed='✖'
-let g:gitgutter_sign_modified_removed='✹'
+let g:gitgutter_sign_modified_removed='✱'
 let g:gitgutter_sign_removed_first_line='✖'
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
+    \ "Modified"  : "✱",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
     \ "Renamed"   : "➜",
@@ -467,7 +468,8 @@ function! s:CloseIfOnlyNerdTreeLeft()
     endif
   endif
 endfunction
-autocmd vimenter * NERDTreeFind | wincmd p
+" Enable to turn on nerdtree on startup
+" autocmd vimenter * NERDTreeFind | wincmd p
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 " Nerdtree mappings
 nmap <C-t> :NERDTreeToggle<CR>

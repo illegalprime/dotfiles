@@ -11,6 +11,6 @@
     multipack to_install
 end
 
-service 'org.cups.cupsd' do
+service 'cups' do
     action :enable
 end

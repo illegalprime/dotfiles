@@ -1,5 +1,5 @@
 # Add the latest vim ppa
-default[:ppas].push("ppa:neovim-ppa/unstable")
+default[:ppas].push "ppa:neovim-ppa/unstable"
 
 default[:nvim][:config] = File.join node[:home], ".config/nvim"
 default[:nvim][:autoload] = File.join node[:nvim][:config], "autoload"

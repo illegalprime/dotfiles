@@ -30,5 +30,5 @@ default[:gtk3][:css][:user] = File.join node[:config], "gtk-3.0/gtk.css"
 
 if node[:platform] == "ubuntu"
     # for the numix theme
-    node[:ppas].push "ppa:numix/ppa"
+    default[:ppas].push "ppa:numix/ppa"
 end

@@ -1,4 +1,4 @@
-default[:user] = "michael"
+default[:user] = "michaeleden"
 default[:home] = File.join "/home", node[:user]
 default[:name] = "Michael Eden"
 default[:email] = "themichaeleden@gmail.com"

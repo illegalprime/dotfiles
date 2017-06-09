@@ -23,7 +23,8 @@ group "wheel" do
     action :create
 end
 
-group "wheel" do
+group 'add_user_to_wheel' do
+    group_name 'wheel'
     members node[:user]
     action :modify
     append true
@@ -35,19 +36,22 @@ sudo "privileged-wheel" do
     commands ["ALL"]
 end
 
-directory File.join node[:config] do
+directory 'create ~/.config' do
+    path node[:config]
     owner node[:user]
     group node[:user]
     mode 0755
 end
 
-directory node[:personal_bin] do
+directory 'create ~/.bin' do
+    path node[:personal_bin]
     owner node[:user]
     group node[:user]
     mode 0755
 end
 
-directory node[:cde] do
+directory 'create ~/cde' do
+    path node[:cde]
     owner node[:user]
     group node[:user]
     mode 0755
