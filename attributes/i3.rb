@@ -18,7 +18,6 @@ Alt = node[:i3][:alt]
 normal[:i3][:startup] = [
     "redshift-gtk",
     "nitrogen --restore",
-    "setxkbmap -option ctrl:nocaps",
     "xmodmap -e 'clear Lock'",
     "xcape -e 'Control_L=Escape;Caps_Lock=Escape'",
     "xset -dpms",
@@ -280,6 +279,3 @@ normal[:i3][:status] = {
     },
 }
 
-# TODO:
-# Note `/etc/default/keyboard` is remapping caps lock to ctrl by adding
-# the `XKBOPTIONS="ctrl:nocaps"` line.
