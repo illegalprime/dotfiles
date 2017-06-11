@@ -1,36 +1,37 @@
 # This file is sourced by non-interactive and interactive zsh login shells.
 # In an interactive shell, this is sourced before .zlogin.
 
-if echo "$-" | grep "l" > /dev/null; then
-else
+###################
+# CONFIGURE THESE #
+###################
+export NORMAL_USER=<%= node[:user] %>
+export ZSH_CACHE_DIR="$(readlink -f ~/.zsh)"
+
+# Init plugins.
+source '<%= node[:zsh][:init] %>'
+
+# Only setup terminal title hooks if we are actually running in an interactive
+# session.
+if ! {echo "$-" | grep "l" > /dev/null}; then
+
+    # Function that prints something in the terminal title.
+    local function zshrc/terminal-title-print() {
+        print -Pn "\e]2;$@\a"
+        print -Pn "\033]0;$@\007"
+    }
+
+    # Every time the prompt is rendered, diplsay user@directory in the terminal
+    # title for terminals that obey the correct VT100 escape code.
     function precmd() {
-        print -Pn "\e]2;$USER@%~\a"
-        print -Pn "\033]0;$USER@%~\007"
+        zshrc/terminal-title-print "$USER@%~"
     }
 
+    # Every time a command is run, print that command in the terminal title for
+    # terminals that obey the correct VT100 escape code.
     function preexec() {
-        print -Pn "\e]2;$1\a"
-        print -Pn "\033]0;$1\007"
-    }
-
-    function search_cmd_all() {
-        if hash pacman 2>/dev/null; then
-            pacman -Ss "$1"
-        elif hash apt-file 2>/dev/null; then
-            apt-file search "$1"
-        else
-            echo "No apt-file or pacman found!"
-        fi
-    }
-
-    function command_not_found_handler() {
-        echo -n "$@ not found... Search for the file? (y/n): "
-        read  RESPONSE
-        if [[ $RESPONSE = "y" || $RESPONSE = "Y" ]]; then
-            echo "Searching..."
-            CMDS=$(search_cmd_all $1)
-            echo "$CMDS"
-        fi
+        # The second argument zsh provides is a stripped down version of the full
+        # command run.
+        zshrc/terminal-title-print "$2"
     }
 fi
 
@@ -51,19 +52,18 @@ ZSH_THEME_GIT_PROMPT_<%= part.to_s.upcase %>="<%= content %>"
 # Autocomplete #
 ################
 
-# Autocomplete.
+# Setup autocomplete.
 autoload -U compinit promptinit
 compinit
 
-# Use an autocomplete cache to speed things up.
-zstyle ':completion::completion:*' use-cache 1
-zstyle ':completion::complete:*' use-cache 1
-
-# Do completions of thins like partial paths.
-setopt completeinword
-
 # Autocomplete entry for killall.
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+
+# Do completions of things like partial paths.
+setopt completeinword
+
+# Use an autocomplete cache to speed things up.
+zstyle ':completion:*' use-cache on
 
 ##########
 # Colors #
@@ -83,7 +83,6 @@ eval RESET='$reset_color'
 
 # Ls colors.
 eval `dircolors`
-alias ls="ls -F --color=auto"
 
 ############
 # Globbing #
@@ -95,9 +94,33 @@ setopt extendedglob
 # Ignore case while globbing.
 unsetopt caseglob
 
-############
+#######
+# Git #
+#######
+
+# Git the branch of a path.
+local function zshrc/git-branch() {
+    git branch 1>/dev/null 2>&1
+}
+
+# Get the branch name of a path.
+local function zshrc/git-branch-name() {
+    local target="$PWD"
+    if zshrc/git-branch "$target"
+    then
+        echo "`git rev-parse --abbrev-ref HEAD 2>/dev/null`"
+    else
+        echo ""
+    fi
+}
+
+###########
 # History #
 ###########
+
+# Setup zsh to save history from previous sessions.
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=SAVEHIST=10000
 
 # Save timestamps and runtimes to the history file.
 setopt extendedhistory
@@ -110,8 +133,20 @@ setopt sharehistory
 ###############
 # Compilation #
 ###############
-
+# Compile things automatically.
 autoload -U zrecompile
+
+# Automatically recompile the compdump, zshrc, and our zgen plugins file if
+# needed. This also compiles zgen itself.
+zrecompile -qp \
+           -R ~/.zshrc -- \
+           -R ~/.zsh/init.zsh -- \
+           -R ~/.zsh/zgen/zgen.zsh -- \
+           -M ~/.zcompdump --
+
+# Recompile everything else if needed.
+zrecompile -q
+
 
 #################
 # Word matching #
@@ -148,51 +183,138 @@ promptinit
 # Extended PS1 and RPS1 substitution.
 setopt promptsubst
 
-# Prompt setup.
-export PS_OPEN='%b%f%k%B%F{red}['
-export PS_CLOSE='%F{red}]%b%f%k'
+# Prompt open and close brace.
+local zshrc_ps_open='%B%k%F{red}[%f'
+local zshrc_ps_close='%B%k%F{red}]%f'
 
-export GIT_PROMPT_EXECUTABLE="haskell"
-export GIT_PROMPT='%b%f$(git_super_status)'
-export PS_PWD="$PS_OPEN%B%F{cyan}%1~%B%F{white}${GIT_PROMPT}%B%F${PS_CLOSE}"
-export PS_TTY="$PS_OPEN%B%F{yellow}%l$PS_CLOSE"
-export PS_USER="$PS_OPEN%B%F{green}%n$PS_CLOSE"
-export PS_HOST="$PS_OPEN%B%F{green}%m$PS_CLOSE"
-export PS_TIME="$PS_OPEN%B%F{yellow}%T$PS_CLOSE"
-export PS_PROMPT='%B%F{red}$%b%f%k'
-export PS_VI_NORMAL="$PS_OPEN%B%F{yellow}NORMAL$PS_CLOSE"
-export PS_VI_INSERT="$PS_OPEN%B%F{yellow}INSERT$PS_CLOSE"
-export PS_VI_INSERT=""
+# The string we want printed for normal mode.
+local zshrc_ps_vi_normal="${zshrc_ps_open}%B%F{yellow}NORMAL${zshrc_ps_close}"
 
+# The string we want printed for insert mode.
+local zshrc_ps_vi_insert=""
 
-function zle-line-init zle-keymap-select {
-   export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
-   zle reset-prompt
+# Renders the prompt, gets called whenever the keymap changes (i.e. change from
+# insert to normal mode, or vice versa), or when the prompt is asked to be
+# re-rendered. This is also called when zle re-renders a line.
+function prompt-init {
+
+    # Immediatly grab the return status of the last program the user ran, so
+    # that we don't clobber it later.
+    local ret_status="$?"
+
+    # Holds the tokens to eventually render.
+    local tokens
+
+    # Always have username token.
+    if [[ $USER != $NORMAL_USER ]]; then
+        tokens+=(green:'%n')
+    fi
+
+    # show hostname if its not the default
+    if [ -n "$SSH_CLIENT" -o -n "$SSH_TTY" ]; then
+        tokens+=(yellow:'%m')
+    fi
+
+    # Always have tty path rendered.
+    # tokens+=(yellow:'%l')
+
+    # Always render top-level directory.
+    tokens+=(cyan:'%1~')
+
+    # If we are in a git repo, have git branch token.
+    if zshrc/git-branch "$PWD"; then
+        tokens+=(white:"%b%f$(git_super_status)%B%F")
+    fi
+
+    # If a program returned an error code, inform the user
+    if [[ "$ret_status" -ne "0" ]]; then
+        tokens+=(yellow:"\xE2\x9C\x96 $ret_status")
+    fi
+
+    # Reset prompt string.
+    PS1=""
+
+    # The length of the tokens rendered so far.
+    local running_length=0
+
+    # Never render more than 2/3 screen width.
+    local top_length=$(( $COLUMNS * 200 / 3 / 100 ))
+
+    # For every token, render the token.
+    for i in $tokens; do
+
+        # Extract the color of the token.
+        local token_color=$(echo $i | cut -f1 -d:)
+
+        # Extract the content of the token.
+        local content=$(echo $i | cut -f2- -d:)
+
+        # Strips color codes from the token content.
+        local zero='%([BSUbfksu]|([FB]|){*})'
+
+        # Construct the new token.
+        local new_token="${zshrc_ps_open}%B%F{${token_color}}${content}${zshrc_ps_close} "
+
+        # Count the width of the new token, ignoring non-rendered characters.
+        local length=${#${(S%%)new_token//$~zero/}}
+
+        # If the top-length has not been overrun, render the new token.
+        if [[ $(( $running_length + $length )) -lt $top_length ]]; then
+            PS1="$PS1$new_token"
+            running_length=$(( $running_length + $length ))
+        fi
+    done
+
+    # Export the new prompts.
+    export PS1="$PS1%k%B%F{red}$%b%f%k "
+    export RPS1="${${KEYMAP/vicmd/$zshrc_ps_vi_normal}/(main|viins)/$zshrc_ps_vi_insert}"
+
+    # Re-render the new prompt if zle is loaded.
+    if zle; then
+        zle reset-prompt
+    fi
 }
 
-PS_FIRST=
-if [ -n "$SSH_CLIENT" -o -n "$SSH_TTY" ]; then
-    PS_FIRST="$PS_HOST"
-else
-    PS_FIRST="$PS_USER"
-fi
+# Re-render the prompt everytime the line re-renders.
+function zle-line-init {
+    prompt-init
+}
 
-export PS1="$PS_FIRST $PS_PWD $PS_PROMPT "
+# Reset the prompt every time the keymap changes. This is needed so that
+# the [NORMAL] mode prompt appears on normal mode.
+function zle-keymap-select {
+    prompt-init
+}
 
-export RPS1="${${KEYMAP/vicmd/$PS_VI_NORMAL}/(main|viins)/$PS_VI_INSERT}"
+zstyle ':completion:*' completer _oldlist _complete
+
 zle -N zle-line-init
 zle -N zle-keymap-select
+prompt-init
+
+# Re-render the prompt half a second after the terminal is resized.
+function TRAPWINCH() {
+    # ZSH restarts the TRAPWINCH every time a restart occurs, so this is as easy
+    # as just sticking the wait here.
+    sleep 0.5
+
+    # Restart zle rendering.
+    zle-line-init
+}
 
 #########
 # Alias #
 #########
-
+alias ls='ls -F --color=auto --group-directories-first'
 alias open='xdg-open'
 alias please='sudo $(fc -ln -1)'
 alias http='python3 -m http.server'
 alias cde='cd <%= node[:cde] %>'
 alias again='until $(fc -ln -1); do :; done'
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
+alias sudo='sudo -E ' # keep environment & check for alias
+alias find-email='netcat lu-serve.gatech.edu 105'
+alias vi=nvim
 
 function targz() {
     tar -zcvf "${1}.tar.gz" "${1}"
@@ -212,6 +334,22 @@ function latex_watch() {
     watch "$FILE" pdflatex -halt-on-error "$FILE"
 }
 
+function transfer() {
+    if [ $# -eq 0 ]; then
+        echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
+        return 1
+    fi
+    tmpfile=$( mktemp -t transferXXX )
+    if tty -s; then
+        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile
+    else
+        curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile
+    fi
+    cat $tmpfile
+    rm -f $tmpfile
+}
+
 PATH="${PATH}:<%= node[:zsh][:paths].join(':') %>"
 
 #############
@@ -221,9 +359,21 @@ export EDITOR=nvim
 export RUST_SRC_PATH=<%= node[:rust][:stdlib] %>
 source '<%= node[:rust][:rust_env] %>'
 
-#########
-# Final #
-#########
-if [[ $PWD = '<%= node[:home] %>' ]]; then
-    cd <%= node[:cde] %>
+################
+# OCaml / opam #
+################
+if hash opam 2>/dev/null; then
+    eval $(opam config env)
 fi
+
+############
+# SSH Keys #
+############
+# Unlock keyring
+keychain --nogui -q id_rsa
+source ~/.keychain/${HOST}-sh
+
+###############
+# Autosuggest #
+###############
+# use the defaults

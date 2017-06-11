@@ -32,6 +32,53 @@ Plug 'tpope/vim-sleuth'
 Plug 'rust-lang/rust.vim'
 
 "
+" Prolog
+"
+Plug 'adimit/prolog.vim'
+
+"
+" Idris
+"
+Plug 'idris-hackers/idris-vim'
+
+"
+" Qt
+"
+Plug 'peterhoeg/vim-qml'
+
+"
+" Coq
+"
+Plug 'jvoorhis/coq.vim'
+Plug 'let-def/vimbufsync' " coquille dependency
+Plug 'the-lambda-church/coquille'
+
+"
+" SMT / z3
+"
+Plug 'raichoo/smt-vim'
+
+"
+" Elixir
+"
+Plug 'elixir-lang/vim-elixir'
+
+"
+" Typescript
+"
+Plug 'leafgarland/typescript-vim'
+
+"
+" Pandoc
+"
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
+"
+" i3
+"
+Plug 'PotatoesMaster/i3-vim-syntax'
+
+"
 " Interface
 "
 " Lightline (simple status line)
@@ -257,6 +304,21 @@ endif
 " Remove trailing whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
+" Set z3 filetype
+augroup filetypedetect
+    " associate *.z3 with smt filetype
+    au BufRead,BufNewFile *.z3 setfiletype smt
+augroup END
+
+" Set ocaml commentstrips
+" associate *.z3 with smt filetype
+au BufRead,BufNewFile *.ml set commentstring=(*\ %s\ *)
+
+" Pandoc Syntax settings
+"
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
 
 "
 "
@@ -380,6 +442,8 @@ endfunction
 
 " Search files recursively ([o]pen file)
 nnoremap <silent> <Space>o :call utils#uniteFileRec()<CR>
+" Open a new tab ([O]pen file)
+nnoremap <silent> <Space>O :tabedit<CR>:call utils#uniteFileRec()<CR>
 " Browse [f]iles in CWD
 nnoremap <silent> <Space>f :call utils#uniteFileBrowse()<CR>
 " [U]nite sources
