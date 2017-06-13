@@ -35,7 +35,7 @@ end
 # Keyboard shortcuts for apps
 normal[:i3][:apps] = [
     {
-        :cmd => "urxvt -e zsh",
+        :cmd => "gnome-terminal -e zsh",
         :sym => [Super, "Return"],
     },
     {
