@@ -84,6 +84,9 @@ for_window [class="^.*"] border pixel 0
 <% end %>
 
 gaps inner <%= node[:i3][:gaps][:inner] %>
+<% if node[:i3][:gaps][:smart] %>
+smart_gaps on
+<% end %>
 
 <% for app in (node[:i3][:startup] + node[:startup]) %>
 exec --no-startup-id <%= app %>

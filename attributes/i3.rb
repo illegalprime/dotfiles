@@ -1,3 +1,4 @@
+# coding: utf-8
 # i3 Config Directory
 default[:i3][:config_dir] = File.join node[:home], ".i3"
 default[:i3][:config_path] = File.join node[:i3][:config_dir], "config"
@@ -90,6 +91,14 @@ normal[:i3][:apps] = [
         :sym => ["Print"],
     },
     {
+        :cmd => "gnome-screenshot -a",
+        :sym => ["Shift", "Print"],
+    },
+    {
+        :cmd => "gnome-screenshot -i",
+        :sym => [Alt, "Print"],
+    },
+    {
         :cmd => "i3-dmenu-desktop --dmenu='rofi -dmenu'",
         :sym => [Super, "d"],
     },
@@ -171,7 +180,8 @@ normal[:i3][:resize] = {
 normal[:i3][:hide_decorations] = true
 
 normal[:i3][:gaps] = {
-    :inner => 5,
+    :inner => 10,
+    :smart => true,
 }
 
 main_font_size = 11
