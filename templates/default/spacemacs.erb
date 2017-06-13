@@ -75,7 +75,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     evil-mc
+     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -330,6 +333,41 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; default tab width is 4!
+  (setq-default tab-width 4)
+
+  ;; window navigation
+  (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)
+  (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
+
+  ;; go to start / end of a line with H / L
+  (define-key evil-normal-state-map (kbd "H") 'beginning-of-line-text)
+  (define-key evil-normal-state-map (kbd "L") 'end-of-line)
+  (define-key evil-visual-state-map (kbd "H") 'beginning-of-line-text)
+  (define-key evil-visual-state-map (kbd "L") 'end-of-line)
+
+  ;; go up and down by visual lines
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
+  ;; split and focus
+  (define-key evil-normal-state-map (kbd "SPC w -") 'split-window-below-and-focus)
+  (define-key evil-normal-state-map (kbd "SPC w /") 'split-window-right-and-focus)
+
+  ;; save with Ctrl-S
+  (global-set-key (kbd "C-s") 'save-buffer)
+
+  ;; comment / un-comment lines
+  (define-key evil-normal-state-map (kbd "M-/") 'spacemacs/comment-or-uncomment-lines)
+
+  ;; turn on multiple cursors in every buffer
+  (global-evil-mc-mode 1)
+
+  ;; use arrows for the powerline
+  (setq powerline-default-separator 'arrow)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
